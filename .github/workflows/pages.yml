@@ -5,7 +5,7 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    - cron: '17 */6 * * *'
+    - cron: '43 */6 * * *'
 
 permissions:
   contents: read
@@ -27,12 +27,16 @@ jobs:
         with:
           ruby-version: '3.3'
           bundler-cache: true
-      - name: Optionally refresh public conference deadlines
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        continue-on-error: true
+      # Conference data is owned by the academic website; both sites render
+      # the same checked/source-labeled deadlines after deployment.
+      - name: Mirror security conference data from academic site
         run: |
-          python3 -m pip install PyYAML==6.0.2
-          python3 scripts/update_security_deadlines.py
+          set -euo pipefail
+          git clone --quiet --depth 1 --branch master https://github.com/2350082187zhou-ux/2350082187zhou-ux.github.io.git "$RUNNER_TEMP/academic-reference"
+          for file in security_ccf.yml security_deadlines.yml security_deadlines_auto.json; do
+            test -s "$RUNNER_TEMP/academic-reference/_data/$file"
+            cp "$RUNNER_TEMP/academic-reference/_data/$file" "_data/$file"
+          done
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Build site
