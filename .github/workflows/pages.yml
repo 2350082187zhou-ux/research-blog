@@ -39,8 +39,6 @@ jobs:
           done
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - name: Build site
         env:
           JEKYLL_ENV: production
