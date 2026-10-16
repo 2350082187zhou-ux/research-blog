@@ -1,0 +1,14 @@
+---
+layout: cyber-blog
+---
+<article class="blog-article">
+  <div class="article-breadcrumb"><a href="https://blog.zhouzedong.top/">← Back to Blog</a><span> / Research notes</span></div>
+  <header class="article-head">
+    <div class="eyebrow">Research journal</div>
+    <h1>{{ page.title | escape }}</h1>
+    <div class="article-byline"><span>Zedong Zhou</span><span>{{ page.date | date: "%B %d, %Y" }}</span>{% if page.tags %}<span>{{ page.tags | join: " · " }}</span>{% endif %}</div>
+    {% if page.excerpt %}<p class="article-lead">{{ page.excerpt | strip_html }}</p>{% endif %}
+  </header>
+  <div class="article-paper">{{ content }}</div>
+  <footer class="article-end"><a href="https://blog.zhouzedong.top/">← All research notes</a></footer>
+</article>

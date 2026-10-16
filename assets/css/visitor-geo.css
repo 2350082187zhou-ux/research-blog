@@ -1,0 +1,44 @@
+
+/* Global visitor scatter plot. No fictitious visits or public IP addresses. */
+.visitor-geo{margin:42px 0 35px;padding:clamp(16px,3vw,30px);border:1px solid #267d85;border-radius:17px;background:radial-gradient(circle at 100% 0%,#064c5573,transparent 50%),linear-gradient(145deg,#051b2a,#061421);color:#e7faff;box-shadow:0 16px 38px #0005;font-family:system-ui,-apple-system,sans-serif;isolation:isolate}
+.visitor-geo *{box-sizing:border-box}
+.visitor-geo-header{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:22px}
+.visitor-geo-kicker{font:700 10px/1.6 ui-monospace,monospace;letter-spacing:.16em;color:#4df2c8}
+.visitor-geo h2{font:750 clamp(23px,2.7vw,32px)/1.25 system-ui,sans-serif;margin:7px 0 11px!important;color:#e7fcff!important;letter-spacing:-.02em}
+.visitor-geo h2:after{display:none!important}
+.visitor-geo h2 span{color:#49ebd2}
+.visitor-geo-header p{color:#afd0dc!important;font:400 13px/1.65 system-ui,sans-serif;margin:0!important;max-width:750px}
+.visitor-geo-badge{white-space:nowrap;color:#6df5d0;border:1px solid #2e967a;background:#0b4039;padding:6px 11px;border-radius:20px;font:700 10px/1.5 ui-monospace,monospace}
+.visitor-geo-panel{border:1px solid #25596b;border-radius:12px;overflow:hidden;background:#041723}
+.visitor-geo-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid #22566b}
+.visitor-geo-stats>div{padding:12px 18px;display:flex;flex-direction:column;gap:5px}
+.visitor-geo-stats>div+div{border-left:1px solid #214b60}
+.visitor-geo-stats small{font:650 10px/1.7 ui-monospace,monospace;color:#8fc4d2}
+.visitor-geo-stats strong{font:800 clamp(22px,3vw,32px)/1.2 system-ui,sans-serif;color:#51eac1;font-variant-numeric:tabular-nums}
+.visitor-geo-map{position:relative;background:radial-gradient(ellipse at center,#1a556022,transparent 70%),#041827;overflow:hidden}
+.visitor-geo-map svg{display:block;width:100%;height:auto;aspect-ratio:1000/470}
+.visitor-geo-map .geo-grid{stroke:#256277;stroke-opacity:.45;stroke-width:1;fill:none}
+.visitor-geo-map .geo-land{fill:#10516a;stroke:#297d8d;stroke-width:1.5;stroke-linejoin:round;opacity:.9}
+.visitor-geo-map .geo-dot{fill:#3affd0;stroke:#effff9;stroke-width:1.2;filter:drop-shadow(0 0 5px #17f7c7)}
+.visitor-geo-map .geo-dot:focus{stroke-width:3;outline:none}
+.visitor-geo-compass{position:absolute;right:13px;top:10px;pointer-events:none;color:#79aebe;font:600 11px ui-monospace,monospace}
+.visitor-geo-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-top:1px solid #1e5165}
+.visitor-geo-status{font:500 11px/1.5 ui-monospace,monospace;color:#9cc8d3}
+.visitor-geo-optin{cursor:pointer;background:#0b584f;border:1px solid #25b98e;color:#effff6;padding:9px 12px;font:700 11px/1.4 system-ui,sans-serif;border-radius:8px;white-space:nowrap}
+.visitor-geo-optin:hover{background:#0b7968}
+.visitor-geo-optin:focus-visible{outline:2px solid #abffe6;outline-offset:3px}
+.visitor-geo-optin[hidden]{display:none!important}
+.visitor-geo-privacy{padding:0 16px 14px;color:#93b8c5!important;font:500 10px/1.6 ui-monospace,monospace;margin:0!important}
+.page__content .visitor-geo{max-width:100%}
+.page__content .visitor-geo-header p{font-size:13px}
+@media(max-width:720px){.visitor-geo-header{flex-wrap:wrap}.visitor-geo-stats>div{padding:11px 9px}.visitor-geo-stats small{font-size:9px}.visitor-geo-bottom{flex-wrap:wrap}}
+
+/* AcademicPages uses a more specific global paragraph selector. */
+.page__content .visitor-geo .visitor-geo-privacy{
+  font:500 10px/1.7 ui-monospace,monospace!important;
+  color:#92b8c4!important;
+  margin:0!important;
+}
+.page__content .visitor-geo .visitor-geo-header p{
+  font:400 13px/1.65 system-ui,sans-serif!important;
+}

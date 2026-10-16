@@ -1,0 +1,46 @@
+/* Self-contained cybersecurity blog conference mission console */
+.blog-deadlines{isolation:isolate;position:relative;background:radial-gradient(circle at 92% 6%,#074a6669,transparent 46%),repeating-linear-gradient(90deg,#0d324126 0 1px,transparent 1px 64px),linear-gradient(145deg,#061b30,#061321 75%);border:1px solid #2bb9b1;box-shadow:0 18px 55px #0009,0 0 45px #0a6f6829 inset;border-radius:16px;overflow:hidden;padding:clamp(19px,3vw,30px)}
+.blog-deadlines:before{position:absolute;content:"";top:0;left:-55%;width:35%;height:2px;background:linear-gradient(90deg,transparent,#58ffe9,transparent);filter:drop-shadow(0 0 10px #2dffbf);animation:blog-ops-scan 8s linear infinite}
+.blog-deadlines:after{position:absolute;content:"";inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,#37ffdf04 0 1px,transparent 1px 4px)}
+.blog-ops-topline{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#81c4ce;font:700 10px/1.7 'JetBrains Mono',monospace;letter-spacing:.11em;margin-bottom:19px}
+.blog-ops-ping{color:#6bffe1}.blog-ops-ping:before{content:"";display:inline-block;height:7px;width:7px;vertical-align:1px;border-radius:50%;background:#43ffbd;box-shadow:0 0 13px #41ffd4;margin-right:8px;animation:blog-ops-pulse 2.2s infinite}
+.blog-ops-marker{color:#8ca9ce}
+.blog-deadlines-header{position:relative;z-index:1;margin-bottom:24px;align-items:center}
+.blog-deadlines-header h2{font-size:clamp(26px,3vw,40px);line-height:1.12;margin:10px 0 11px;letter-spacing:-.055em}
+.blog-deadlines-header h2 span{color:#52ffce;text-shadow:0 0 24px #28ffba32}
+.blog-deadlines-header p{max-width:570px;line-height:1.85;font-size:12px;color:#9dc7d2}
+.blog-deadlines-header>a{padding:12px 18px;background:#0c534d80;border:1px solid #2ad4a6;border-radius:7px;color:#a9ffed;transition:.2s}
+.blog-deadlines-header>a:hover{background:#0f7169;box-shadow:0 0 24px #2df6b72d;text-decoration:none;transform:translateY(-2px)}
+.blog-ops-dashboard{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(205px,.7fr);gap:14px;margin:0 0 22px}
+.blog-ops-terminal{border:1px solid #296783;border-radius:11px;background:linear-gradient(150deg,#09293cdd,#04131eee);box-shadow:inset 0 0 30px #14deb810;min-width:0}
+.blog-ops-terminal-bar{padding:8px 12px;border-bottom:1px solid #225768;color:#80acbc;font:600 10px 'JetBrains Mono',monospace;display:flex;justify-content:space-between;gap:8px}
+.blog-ops-terminal-bar:before{content:"● ● ●";letter-spacing:3px;color:#3a86ab}
+.blog-ops-terminal-body{padding:18px 20px}
+.blog-ops-terminal-key{font:700 10px/1.7 'JetBrains Mono',monospace;color:#47e5c7;letter-spacing:.12em}
+.blog-ops-next-name{font:700 clamp(19px,2.5vw,27px)/1.3 'Space Grotesk',sans-serif;color:#f4ffff;margin:8px 0;letter-spacing:-.03em;min-height:30px}
+.blog-ops-next-count{color:#54ffcc;font:800 clamp(19px,2.6vw,30px)/1.4 'JetBrains Mono',monospace;font-variant-numeric:tabular-nums;text-shadow:0 0 17px #17eac85c}
+.blog-ops-next-meta{font:600 10px/1.6 'JetBrains Mono',monospace;color:#84b2c0;margin:9px 0 0}
+.blog-ops-progress{height:5px;overflow:hidden;background:#143d50;border-radius:5px;margin-top:19px}
+.blog-ops-progress>span{display:block;height:100%;width:40%;background:linear-gradient(90deg,#31cebd,#6dffe1);box-shadow:0 0 12px #1affbe;transition:width .6s}
+.blog-ops-sensor{position:relative;min-height:175px;border:1px solid #235972;border-radius:11px;background:radial-gradient(circle at center,#0d4151,#071724 70%);display:grid;place-items:center;overflow:hidden}
+.blog-ops-sensor:before{content:"";width:150px;height:150px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 25px,#41ffdb45 26px 27px),linear-gradient(0deg,transparent 49.5%,#4affc250 50%,transparent 50.5%),linear-gradient(90deg,transparent 49.5%,#4affc250 50%,transparent 50.5%);border:1px solid #51ffe055;box-shadow:inset 0 0 25px #2affc114}
+.blog-ops-sensor:after{position:absolute;content:"";width:148px;height:148px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 300deg,#39ffca25 333deg,#4cffca99 359deg,transparent 360deg);animation:blog-ops-rotate 7s linear infinite}
+.blog-ops-sensor-label{position:absolute;z-index:1;color:#b3ffeb;font:700 10px/1.7 'JetBrains Mono',monospace;letter-spacing:.13em;text-align:center;text-shadow:0 0 8px #27ecc8}
+.blog-ops-sensor-label small{display:block;color:#70a5b6;letter-spacing:.1em;font-size:9px}
+.blog-ops-controls{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 10px}
+.blog-ops-controls strong{font:700 10px 'JetBrains Mono',monospace;letter-spacing:.1em;color:#7ed8d8}
+.blog-ops-controls button{border:1px solid #2c7386;background:#082a38;color:#9be8db;border-radius:6px;padding:7px 11px;font:700 10px 'JetBrains Mono',monospace;cursor:pointer}
+.blog-ops-controls button:hover{background:#0f4c53;color:#d9fff4}
+.blog-ddl-row{position:relative;z-index:1;border-color:#285971;background:#071c2eaa;transition:transform .2s,border-color .2s,box-shadow .2s}
+.blog-ddl-row:hover{transform:translateX(4px);border-color:#3ef5c6;box-shadow:0 0 18px #23f8c515}
+.blog-ddl-row:before{content:"";position:absolute;left:-1px;top:20%;height:60%;width:2px;background:#3affcb;opacity:.5}
+.blog-ccf-rank{color:#65f9d1!important;font-size:9px!important;border:1px solid #2c9d8a;border-radius:4px;padding:1px 4px;margin-left:4px}
+.blog-ccf-rank[data-rank="B"]{color:#6ec7ff!important;border-color:#3b80a9}
+.blog-ccf-rank[data-rank="C"]{color:#c6a0ff!important;border-color:#68528b}
+.blog-ccf-rank[data-rank="NA"]{color:#8aa9b7!important;border-color:#3b526a}
+.blog-ddl-date{display:block;color:#79a9b9;font:500 10px/1.7 'JetBrains Mono',monospace;margin-top:6px}
+.blog-ddl-disclaimer{position:relative;z-index:1;border-top:1px solid #21516a;padding-top:15px;margin-top:18px}
+@keyframes blog-ops-rotate{to{transform:rotate(360deg)}}@keyframes blog-ops-pulse{50%{opacity:.5}}@keyframes blog-ops-scan{to{left:140%}}
+@media(max-width:800px){.blog-ops-dashboard{grid-template-columns:1fr minmax(140px,.5fr)}.blog-ops-sensor{min-height:170px}}
+@media(max-width:600px){.blog-ops-dashboard{grid-template-columns:1fr}.blog-ops-sensor{display:none}.blog-ops-terminal-body{padding:16px}.blog-deadlines-header>a{display:inline-block;white-space:normal;text-align:center}}
+@media(prefers-reduced-motion:reduce){.blog-deadlines:before,.blog-ops-sensor:after,.blog-ops-ping:before{animation:none!important}.blog-ddl-row,.blog-deadlines-header>a{transition:none!important}}
