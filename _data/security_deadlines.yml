@@ -1,0 +1,120 @@
+# Security Top Four CFP dates, manually verified against official conference CFPs.
+# Last fact check: 2026-10-15. Time semantics: 23:59:59 AoE = UTC-12,
+# so its canonical UTC timestamp is 11:59:59Z on the following calendar day.
+# Sources: https://www.ieee-security.org/TC/SP2027/cfpapers.html
+#          https://www.usenix.org/conference/usenixsecurity27/call-for-papers
+#          https://www.sigsac.org/ccs/CCS2027/cfp.html
+#          https://www.ndss-symposium.org/ndss2027/submissions/call-for-papers/
+verified_on: "2026-10-15"
+conferences:
+  - id: sp
+    short: "IEEE S&P"
+    name: "IEEE Symposium on Security and Privacy"
+    year: 2027
+    location: "Montréal, Canada"
+    dates: "May 17–20, 2027"
+    label: "Systems · Privacy · Security"
+    official: "https://www.ieee-security.org/TC/SP2027/cfpapers.html"
+    theme: green
+    note: "Two cycles. Abstract registration is mandatory before the full paper."
+  - id: usenix
+    short: "USENIX Security"
+    name: "USENIX Security Symposium"
+    year: 2027
+    location: "Denver, Colorado, USA"
+    dates: "Aug 11–13, 2027"
+    label: "Systems · Software · Hardware"
+    official: "https://www.usenix.org/conference/usenixsecurity27/call-for-papers"
+    theme: blue
+    note: "Two cycles. Mandatory registration is one week before full papers."
+  - id: ccs
+    short: "ACM CCS"
+    name: "ACM Conference on Computer and Communications Security"
+    year: 2027
+    location: "Atlanta, Georgia, USA"
+    dates: "Oct 11–15, 2027"
+    label: "Security · Cryptography · Privacy"
+    official: "https://www.sigsac.org/ccs/CCS2027/cfp.html"
+    theme: violet
+    note: "2027 has two cycles; official submission dates are currently TBD."
+  - id: ndss
+    short: "NDSS"
+    name: "Network and Distributed System Security Symposium"
+    year: 2027
+    location: "Seoul, Republic of Korea"
+    dates: "Mar 22–26, 2027"
+    label: "Networks · Systems · Applied Security"
+    official: "https://www.ndss-symposium.org/ndss2027/submissions/call-for-papers/"
+    theme: orange
+    note: "Both 2027 full-paper submission cycles have passed."
+events:
+  - id: sp-2027-a-abstract
+    conf: sp
+    cycle: "Cycle 1"
+    kind: abstract
+    label: "Abstract registration"
+    local_date: "2026-06-04"
+    iso_utc: "2026-06-05T11:59:59Z"
+  - id: sp-2027-a-paper
+    conf: sp
+    cycle: "Cycle 1"
+    kind: paper
+    label: "Full paper submission"
+    local_date: "2026-06-11"
+    iso_utc: "2026-06-12T11:59:59Z"
+  - id: sp-2027-b-abstract
+    conf: sp
+    cycle: "Cycle 2"
+    kind: abstract
+    label: "Abstract registration"
+    local_date: "2026-11-10"
+    iso_utc: "2026-11-11T11:59:59Z"
+  - id: sp-2027-b-paper
+    conf: sp
+    cycle: "Cycle 2"
+    kind: paper
+    label: "Full paper submission"
+    local_date: "2026-11-17"
+    iso_utc: "2026-11-18T11:59:59Z"
+  - id: usenix-2027-a-abstract
+    conf: usenix
+    cycle: "Cycle 1"
+    kind: abstract
+    label: "Mandatory registration"
+    local_date: "2026-08-18"
+    iso_utc: "2026-08-19T11:59:59Z"
+  - id: usenix-2027-a-paper
+    conf: usenix
+    cycle: "Cycle 1"
+    kind: paper
+    label: "Full paper submission"
+    local_date: "2026-08-25"
+    iso_utc: "2026-08-26T11:59:59Z"
+  - id: usenix-2027-b-abstract
+    conf: usenix
+    cycle: "Cycle 2"
+    kind: abstract
+    label: "Mandatory registration"
+    local_date: "2027-01-19"
+    iso_utc: "2027-01-20T11:59:59Z"
+  - id: usenix-2027-b-paper
+    conf: usenix
+    cycle: "Cycle 2"
+    kind: paper
+    label: "Full paper submission"
+    local_date: "2027-01-26"
+    iso_utc: "2027-01-27T11:59:59Z"
+  - id: ndss-2027-summer-paper
+    conf: ndss
+    cycle: "Summer cycle"
+    kind: paper
+    label: "Full paper submission"
+    local_date: "2026-05-06"
+    iso_utc: "2026-05-07T11:59:59Z"
+  - id: ndss-2027-fall-paper
+    conf: ndss
+    cycle: "Fall cycle"
+    kind: paper
+    label: "Full paper submission"
+    local_date: "2026-08-19"
+    iso_utc: "2026-08-20T11:59:59Z"

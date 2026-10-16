@@ -1,0 +1,20 @@
+# CCF recommended conference categories: Network and Information Security catalogue.
+# https://www.ccf.org.cn/Academic_Evaluation/NIS/
+# Grade refers to the CONFERENCE listed by CCF, not CFP-source verification or journal track.
+# For CHES/TCHES and PETS/PoPETs, the reference grade is for the corresponding conference;
+# do not imply a rolling journal submission is itself CCF ranked.
+source: "https://www.ccf.org.cn/Academic_Evaluation/NIS/"
+catalogue: "CCF Network & Information Security"
+ranks:
+  sp: "A"
+  usenix: "A"
+  ccs: "A"
+  ndss: "A"
+  eurocrypt: "A"
+  ches: "B"
+  csf: "B"
+  asiaccs: "C"
+  ctrsa: "C"
+  eurosp: "C"
+  fc: "C"
+  pets: "C"

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112" fill="none" role="img" aria-label="NVMe and storage protection">
+<defs><filter id="neon" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<g stroke="#32e5fa" stroke-linecap="round" stroke-linejoin="round" filter="url(#neon)">
+ <rect x="12" y="11" width="66" height="26" rx="5" fill="#073447" stroke-width="3"/>
+ <path d="M18 32h54M20 20h24" stroke-width="2.5"/><text x="45" y="29" text-anchor="middle" font-size="13" font-family="system-ui,Arial" font-weight="800" fill="#a5fff5" stroke="none">NVMe</text>
+ <rect x="9" y="42" width="74" height="25" rx="5" fill="#074050" stroke-width="3"/>
+ <path d="M15 53h21M15 60h21" stroke-width="2.2"/><circle cx="65" cy="54" r="3.2" fill="#5bffe4" stroke="none"/>
+ <rect x="6" y="72" width="78" height="25" rx="5" fill="#062a42" stroke-width="3"/>
+ <path d="M14 82h25M14 89h17" stroke-width="2.2"/><circle cx="64" cy="84" r="3.2" fill="#6cffe1" stroke="none"/>
+ <path d="M82 57l26 9v21c0 12-10 19-26 24-16-5-26-12-26-24V66z" fill="#06463b" stroke="#47ffe1" stroke-width="3.4"/>
+ <path d="M74 81v-6a8 8 0 0116 0v6" stroke="#c7ffef" stroke-width="3"/>
+ <rect x="71" y="81" width="22" height="17" rx="3.2" fill="#2dcbb0" stroke="#a4ffe7" stroke-width="1.8"/><circle cx="82" cy="88" r="2.1" fill="#045347" stroke="none"/>
+</g></svg>

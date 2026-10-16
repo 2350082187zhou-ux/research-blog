@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 610" role="img" aria-labelledby="title desc">
+<title id="title">AI agent privileges and storage data integrity — research trust boundary</title>
+<desc id="desc">Five aligned modules with unobstructed arrows: a privileged AI agent issues system calls, Linux LSM enforcement and block I/O are evaluated on the host, and independent device-side integrity protection is proposed beyond the host-controlled boundary. This is a conceptual research diagram.</desc>
+<defs>
+<linearGradient id="background" x2="0" y2="1"><stop stop-color="#031b2b"/><stop offset="1" stop-color="#041523"/></linearGradient>
+<linearGradient id="red" x2="1" y2="1"><stop stop-color="#57233b"/><stop offset="1" stop-color="#1b1025"/></linearGradient>
+<linearGradient id="blue" x2="1" y2="1"><stop stop-color="#0a3c5b"/><stop offset="1" stop-color="#062239"/></linearGradient>
+<linearGradient id="green" x2="1" y2="1"><stop stop-color="#075349"/><stop offset="1" stop-color="#063128"/></linearGradient>
+<filter id="glow"><feGaussianBlur stdDeviation="6"/></filter>
+<pattern id="mesh" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#1a7085" stroke-width=".7" opacity=".3"/></pattern>
+</defs>
+<rect width="1600" height="610" fill="url(#background)"/>
+<rect width="1600" height="610" fill="url(#mesh)"/>
+<ellipse cx="880" cy="335" rx="480" ry="210" fill="#10a6cf" opacity=".05" filter="url(#glow)"/>
+<g font-family="system-ui,-apple-system,Segoe UI,Arial,sans-serif">
+<path d="M20 85H1580" stroke="#24738b" stroke-width="1.4"/>
+<text x="47" y="65" fill="#9ebff0" font-size="19" font-weight="700" letter-spacing="4">THREAT MODEL</text>
+<text x="790" y="65" text-anchor="middle" fill="#48d9f7" font-size="19" font-weight="700" letter-spacing="4">HOST-CONTROLLED MECHANISMS</text>
+<text x="1435" y="65" text-anchor="middle" fill="#81efce" font-size="19" font-weight="700" letter-spacing="4">DEVICE TRUST</text>
+<!-- host boundary contains three host cards, not the independent device policy -->
+<rect x="351" y="127" width="902" height="400" rx="15" fill="#006b92" fill-opacity=".045" stroke="#2baee0" stroke-width="1.5" stroke-dasharray="8 8"/>
+<text x="800" y="547" text-anchor="middle" font-size="12" font-family="monospace" fill="#72ceec" letter-spacing="3">USER / KERNEL SPACE · HOST-CONTROLLED</text>
+<!-- arrows deliberately occupy gutters and never intersect the node borders -->
+<path d="M316 332H358" stroke="#5cdbfd" stroke-width="3.8" stroke-linecap="round"/><path d="M345 322L358 332L345 342" fill="none" stroke="#5cdbfd" stroke-width="3.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M637 332H669" stroke="#5cdbfd" stroke-width="3.8" stroke-linecap="round"/><path d="M656 322L669 332L656 342" fill="none" stroke="#5cdbfd" stroke-width="3.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M948 332H980" stroke="#5cdbfd" stroke-width="3.8" stroke-linecap="round"/><path d="M967 322L980 332L967 342" fill="none" stroke="#5cdbfd" stroke-width="3.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1259 332H1291" stroke="#5cdbfd" stroke-width="3.8" stroke-linecap="round"/><path d="M1278 322L1291 332L1278 342" fill="none" stroke="#5cdbfd" stroke-width="3.8" stroke-linejoin="round" stroke-linecap="round"/>
+<!-- agent -->
+<rect x="35" y="170" width="270" height="320" rx="14" fill="url(#red)" stroke="#ff7393" stroke-width="2.7"/>
+<rect x="62" y="185" width="112" height="27" rx="13.5" fill="#813044" opacity=".65"/>
+<text x="118" y="204" text-anchor="middle" font-size="14" fill="#ffc0cb" font-weight="750">ROOT ACCESS</text>
+<g transform="translate(120 219)" stroke="#ff8da5" stroke-width="3" fill="none">
+<path d="M50 13V0"/><circle cx="50" cy="-2" r="6" fill="#fb6b92"/>
+<rect x="0" y="17" width="100" height="75" rx="23" fill="#271728"/>
+<rect x="12" y="39" width="76" height="37" rx="15" fill="#061927"/>
+<path d="M31 55h11M59 55h11" stroke="#ffcf93" stroke-width="8" stroke-linecap="round"/>
+</g>
+<text x="170" y="365" text-anchor="middle" font-size="27" font-weight="750" fill="#ffe9ee">AI Agent</text>
+<text x="170" y="394" text-anchor="middle" font-size="17" fill="#ffcad3">Privileged tool execution</text>
+<path d="M63 414H278" stroke="#95516c"/>
+<text x="170" y="438" text-anchor="middle" font-size="16" fill="#e6aab7">Potential file operations</text>
+<text x="170" y="463" text-anchor="middle" font-size="15" font-family="monospace" fill="#ff9ab7">unlink() · write() · chmod()</text>
+<!-- syscalls -->
+<rect x="371" y="170" width="254" height="320" rx="14" fill="url(#blue)" stroke="#39bbfb" stroke-width="2.7"/>
+<rect x="429" y="201" width="138" height="87" rx="12" fill="#071b31" stroke="#55cfff" stroke-width="3"/>
+<path d="M444 222h99M444 236h70M444 250h85" stroke="#58ccff" stroke-width="3"/>
+<path d="M446 270l13-10-13-10M467 270h33" stroke="#5deaff" stroke-width="3" fill="none"/>
+<text x="498" y="350" text-anchor="middle" font-size="27" font-weight="750" fill="#f0fcff">Syscalls</text>
+<text x="498" y="382" text-anchor="middle" font-size="17" fill="#b1cedf">VFS / file API</text>
+<path d="M399 402H597" stroke="#317caa"/>
+<text x="498" y="431" text-anchor="middle" font-size="17" fill="#83cfff">sys_enter · sys_exit</text>
+<text x="498" y="458" text-anchor="middle" font-size="17" fill="#94b5cb">Host entry points</text>
+<!-- lsm -->
+<rect x="682" y="170" width="254" height="320" rx="14" fill="url(#green)" stroke="#52f4be" stroke-width="2.7"/>
+<path d="M809 205l53 22v48c0 36-26 58-53 74-27-16-53-38-53-74v-48z" fill="#075c4b" stroke="#5effc4" stroke-width="3.5"/>
+<path d="M792 266v-15a17 17 0 0134 0v15" stroke="#afffe1" stroke-width="5" fill="none"/>
+<rect x="786" y="263" width="46" height="37" rx="5" fill="#43eab9"/>
+<text x="809" y="375" text-anchor="middle" font-size="27" font-weight="750" fill="#f0fcff">Linux LSM</text>
+<text x="809" y="403" text-anchor="middle" font-size="17" fill="#99f4d6">eBPF LSM / AppArmor</text>
+<path d="M710 420H908" stroke="#258b78"/>
+<text x="809" y="449" text-anchor="middle" font-size="17" fill="#a7dcd2">Host-controlled policy</text>
+<text x="809" y="474" text-anchor="middle" font-size="17" fill="#86bcae">under evaluation</text>
+<!-- block -->
+<rect x="993" y="170" width="254" height="320" rx="14" fill="url(#blue)" stroke="#4a9cff" stroke-width="2.7"/>
+<g transform="translate(1068 212)">
+<ellipse cx="52" cy="17" rx="51" ry="15" fill="#0b3757" stroke="#53b7ff" stroke-width="3"/>
+<path d="M1 17v42c0 8 22 16 51 16s51-8 51-16V17" fill="none" stroke="#5abfff" stroke-width="3"/>
+<path d="M1 38c0 9 22 17 51 17s51-8 51-17M1 58c0 9 22 17 51 17s51-8 51-17" fill="none" stroke="#5abfff" stroke-width="2.5"/>
+<circle cx="81" cy="47" r="3.4" fill="#4bf6e8"/>
+</g>
+<text x="1120" y="350" text-anchor="middle" font-size="27" font-weight="750" fill="#f0fcff">Block I/O</text>
+<text x="1120" y="382" text-anchor="middle" font-size="17" fill="#b1cedf">Storage reads / writes</text>
+<path d="M1021 402H1219" stroke="#336da9"/>
+<text x="1120" y="432" text-anchor="middle" font-size="17" fill="#adcef5">Observe block access</text>
+<text x="1120" y="459" text-anchor="middle" font-size="17" fill="#9cbeda">within the host</text>
+<!-- independent device card -->
+<rect x="1304" y="170" width="261" height="320" rx="14" fill="url(#green)" stroke="#3ff2c5" stroke-width="2.7"/>
+<path d="M1434 205l59 23v56c0 39-32 62-59 77-27-15-59-38-59-77v-56z" fill="#0b6955" stroke="#60ffe0" stroke-width="3.5"/>
+<path d="M1413 271v-20a21 21 0 0142 0v20" stroke="#c0ffef" stroke-width="6" fill="none"/>
+<rect x="1407" y="270" width="54" height="44" rx="6" fill="#3ae8bc" stroke="#b4ffea" stroke-width="2"/>
+<circle cx="1434" cy="289" r="5" fill="#086e5c"/>
+<text x="1434" y="381" text-anchor="middle" font-size="27" font-weight="750" fill="#e5fff7">Data Integrity</text>
+<text x="1434" y="412" text-anchor="middle" font-size="17" fill="#c9f9e9">Independent device-side</text>
+<text x="1434" y="435" text-anchor="middle" font-size="17" fill="#c9f9e9">policy and verification</text>
+<path d="M1332 450H1537" stroke="#359b7e"/>
+<text x="1434" y="472" text-anchor="middle" font-size="13" font-weight="650" fill="#77edc6">PROPOSED TRUST BOUNDARY</text>
+<!-- footer -->
+<path d="M22 565H1578" stroke="#26748d"/>
+<text x="45" y="594" font-family="monospace" font-size="13" fill="#8bb8cb" letter-spacing="1">TRACE · TEST · REPRODUCE · COMPARE</text>
+<text x="799" y="594" text-anchor="middle" font-family="monospace" font-size="12" fill="#a4d9df">WHICH PROTECTIONS SURVIVE HOST COMPROMISE?</text>
+<text x="1545" y="594" text-anchor="end" font-family="monospace" font-size="12" fill="#76e4c6">CONCEPTUAL MODEL</text>
+</g></svg>
