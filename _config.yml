@@ -1,0 +1,17 @@
+title: "Zedong Zhou | Cybersecurity Blog"
+description: "Cybersecurity research notes on AI agents, Linux, eBPF, storage and systems security."
+url: "https://blog.zhouzedong.top"
+baseurl: ""
+timezone: America/Los_Angeles
+markdown: kramdown
+highlighter: rouge
+permalink: /posts/:year/:month/:day/:title/
+future: false
+plugins:
+  - jekyll-feed
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: cyber-post
