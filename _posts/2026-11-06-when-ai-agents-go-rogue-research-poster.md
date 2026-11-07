@@ -3,12 +3,20 @@ layout: cyber-post
 title: "When AI Agents Go Rogue: Who Protects Your Files? — Research Poster"
 title_en: "When AI Agents Go Rogue: Who Protects Your Files? — Research Poster"
 title_zh: "当 AI 智能体失控：谁来保护你的文件？——科研海报"
+title_ja: "AIエージェントが暴走するとき：誰がファイルを守るのか？ — 研究ポスター"
+title_ko: "AI 에이전트가 통제 불능이 될 때: 누가 파일을 보호하는가? — 연구 포스터"
+title_de: "Wenn KI-Agenten außer Kontrolle geraten: Wer schützt Ihre Dateien? — Forschungsposter"
+title_fr: "Quand les agents IA dérapent : qui protège vos fichiers ? — Poster de recherche"
 date: 2026-11-06
 categories: [Research]
 tags: [AI Agent Security, File Protection, Linux, eBPF, Storage Security, Poster]
 excerpt: "Research poster by Zedong Zhou and Niusen Chen assessing host-side file protections against a root-privileged AI agent."
 excerpt_en: "Research poster by Zedong Zhou and Niusen Chen assessing host-side file protections against a root-privileged AI agent."
 excerpt_zh: "Zedong Zhou 与 Niusen Chen 的科研海报：实验评估 root 权限 AI 智能体对文件系统、内核和块设备保护的绕过能力。"
+excerpt_ja: "root権限を持つAIエージェントがファイルシステム、カーネル、ブロックデバイスの保護を回避するリスクを検証した研究。"
+excerpt_ko: "root 권한 AI 에이전트가 파일 시스템, 커널, 블록 장치 보호를 우회하는 위험을 평가한 연구 포스터."
+excerpt_de: "Forschungsposter über die Umgehung von Datei-, Kernel- und Blockgeräteschutz durch KI-Agenten mit Root-Rechten."
+excerpt_fr: "Poster de recherche sur le contournement des protections du système de fichiers, du noyau et des périphériques blocs par un agent IA root."
 author_profile: true
 ---
 
@@ -188,5 +196,173 @@ AI 智能体可在个人电脑和其他终端上自动处理文件，提高工�
 **单位：** University of Nevada, Reno — Department of Computer Science and Engineering。
 
 本页面提供海报的中文内容介绍和网页研究示意图；原始 PDF 通过上方在线预览和下载链接提供。
+
+</div>
+
+<div class="blog-language-panel" data-blog-lang="ja" markdown="1">
+
+> **研究ポスター** · Zedong Zhou、Niusen Chen · University of Nevada, Reno。
+
+**[オリジナルのポスターPDFを開く]({{ '/assets/blog/When%20AI%20Agents%20Go%20Rogue%20Who%20Protects%20Your%20Files.pdf' | relative_url }})** · **[PDFをダウンロード]({{ '/assets/blog/When%20AI%20Agents%20Go%20Rogue%20Who%20Protects%20Your%20Files.pdf' | relative_url }})**
+
+![研究内容の概略図]({{ '/assets/blog/ai-agents-go-rogue-poster-overview.svg' | relative_url }})
+
+*この図はWeb用の概要図です。原本は上記のPDFをご覧ください。*
+
+## 概要
+
+AIエージェントは、シェルコマンドの実行、ファイル操作、OSとの連携を行います。**root権限**が与えられると、ローカルファイルの削除や改変が重大なリスクになります。本研究では、ファイルシステム、カーネル、ブロックデバイスの3層におけるホスト側の保護機構を実験的に評価しました。
+
+テストした環境では、権限を持つエージェントが3つの保護を回避または無効化して対象ファイルを削除しました。ホスト自身が管理する防御だけでは、独立した信頼境界を確保できない可能性があります。
+
+## 脅威モデルと実験環境
+
+対象は、管理インターフェースやシェルを利用できるroot権限のClaude Codeエージェントです。Ubuntu 26.04 LTS、Linux 7.0.0-22-generic、ext4、モデルclaude-sonnet-4-6を使用し、模擬機密情報を含むテキストファイルの削除を防ぐことを目標としました。これらの設定は提出済みポスターの記載に基づきます。
+
+## 検証した3層の保護
+
+### 1. ファイルシステム層
+
+変更不可属性を設定しても、root権限で `chattr` を操作すると属性を変更でき、ファイルを削除できます。**結果：回避されました。**
+
+### 2. カーネル層（eBPF LSM）
+
+`unlink` などの削除操作を監視・拒否するeBPF LSMプログラムを導入しました。しかし、ホスト管理権限によってプログラムを変更または取り外せます。**結果：回避されました。**
+
+### 3. ブロックデバイス層
+
+読み取り専用設定によって書き込みを抑止しましたが、管理権限でデバイスまたはマウント状態を変更できました。**結果：回避されました。**
+
+## 結論と今後の研究
+
+今回の結果はテストした設定と機構に限定され、すべてのホスト側保護が無効という意味ではありません。今後は、**TEEによる保護**と**フラッシュストレージ／コントローラによる独立した強制保護**を研究する方針です。これらはまだ検証済みの対策ではありません。
+
+**著者：** Zedong Zhou、Niusen Chen · **所属：** University of Nevada, Reno。
+
+</div>
+
+<div class="blog-language-panel" data-blog-lang="ko" markdown="1">
+
+> **연구 포스터** · Zedong Zhou, Niusen Chen · University of Nevada, Reno.
+
+**[원본 포스터 PDF 열기]({{ '/assets/blog/When%20AI%20Agents%20Go%20Rogue%20Who%20Protects%20Your%20Files.pdf' | relative_url }})** · **[PDF 다운로드]({{ '/assets/blog/When%20AI%20Agents%20Go%20Rogue%20Who%20Protects%20Your%20Files.pdf' | relative_url }})**
+
+![연구 개요 다이어그램]({{ '/assets/blog/ai-agents-go-rogue-poster-overview.svg' | relative_url }})
+
+*이 이미지는 웹용 개요 그림이며 원본 포스터는 위 PDF에서 볼 수 있습니다.*
+
+## 초록
+
+AI 에이전트는 셸 명령 실행, 파일 조작, 운영체제와의 상호작용을 수행할 수 있습니다. **root 권한**이 주어지면 로컬 파일의 무단 삭제나 변경 위험이 커집니다. 본 포스터는 파일 시스템, 커널, 블록 장치 계층에서 적용한 세 가지 호스트 측 보호 방법을 실험적으로 평가합니다.
+
+시험한 환경에서는 root 권한을 가진 에이전트가 모든 시험 대상 보호를 우회하거나 비활성화하고 대상 파일을 삭제했습니다. 이는 동일한 호스트가 제어하는 방어만으로 독립적인 신뢰 경계를 보장하기 어렵다는 점을 보여 줍니다.
+
+## 위협 모델 및 실험 환경
+
+에이전트는 임의의 셸 명령과 관리자 인터페이스를 사용할 수 있는 root 권한의 Claude Code입니다. 환경은 Ubuntu 26.04 LTS, Linux 7.0.0-22-generic, ext4, claude-sonnet-4-6이며, 모의 민감 정보가 들어 있는 텍스트 파일의 삭제를 막는 것을 목표로 했습니다. 수치는 제출한 원본 포스터의 기록을 따릅니다.
+
+## 평가한 세 가지 보호 계층
+
+### 1. 파일 시스템 계층
+
+불변 파일 속성을 설정했지만 root 권한으로 `chattr` 속성을 변경한 뒤 파일을 삭제할 수 있었습니다. **결과: 우회됨.**
+
+### 2. 커널 계층(eBPF LSM)
+
+`unlink` 등 삭제 작업을 차단하는 eBPF LSM 훅을 적용했습니다. 그러나 관리자 권한으로 해당 프로그램을 수정하거나 해제할 수 있었습니다. **결과: 우회됨.**
+
+### 3. 블록 장치 계층
+
+읽기 전용 설정으로 기록을 막았으나 관리자가 장치 또는 마운트 상태를 변경할 수 있었습니다. **결과: 우회됨.**
+
+## 결론과 향후 연구
+
+결과는 시험한 환경과 보호 수단에 한정되며, 모든 호스트 측 보안이 무용하다는 뜻은 아닙니다. 향후 연구 방향은 **TEE 기반 강제 보호**와 **플래시/저장장치 컨트롤러 수준의 독립적인 보호**입니다. 두 방향 모두 아직 본 포스터에서 실험적으로 검증한 방어는 아닙니다.
+
+**저자:** Zedong Zhou, Niusen Chen · **소속:** University of Nevada, Reno.
+
+</div>
+
+<div class="blog-language-panel" data-blog-lang="de" markdown="1">
+
+> **Forschungsposter** · Zedong Zhou und Niusen Chen · University of Nevada, Reno.
+
+**[Originalposter als PDF öffnen]({{ '/assets/blog/When%20AI%20Agents%20Go%20Rogue%20Who%20Protects%20Your%20Files.pdf' | relative_url }})** · **[PDF herunterladen]({{ '/assets/blog/When%20AI%20Agents%20Go%20Rogue%20Who%20Protects%20Your%20Files.pdf' | relative_url }})**
+
+![Übersicht der experimentellen Schutzebenen]({{ '/assets/blog/ai-agents-go-rogue-poster-overview.svg' | relative_url }})
+
+*Die Abbildung ist eine Web-Zusammenfassung. Das Originalposter steht als PDF zur Verfügung.*
+
+## Zusammenfassung
+
+KI-Agenten können Shell-Befehle ausführen, Dateien verwalten und direkt mit Betriebssystemfunktionen interagieren. Mit **Root-Rechten** können diese Fähigkeiten die Integrität lokaler Dateien gefährden. Wir untersuchen experimentell drei hostseitige Schutzebenen gegen Dateilöschung: Dateisystem, Kernel und Blockgerät.
+
+In der getesteten Konfiguration konnte der privilegierte Agent alle untersuchten Schutzmaßnahmen umgehen oder abschalten und die Zieldatei löschen. Ein vom kompromittierbaren Host kontrollierter Mechanismus bildet daher möglicherweise keine unabhängige Sicherheitsgrenze.
+
+## Bedrohungsmodell und Versuchsumgebung
+
+Der Claude-Code-Agent verfügt über vollständige Root-Rechte und kann Shell-Befehle sowie Administrationsschnittstellen nutzen. Laut Poster wurden Ubuntu 26.04 LTS, Linux 7.0.0-22-generic, ext4 und claude-sonnet-4-6 verwendet. Geschützt werden sollte eine Textdatei mit simulierten sensiblen Informationen. Die Konfigurationsangaben wurden aus dem Originalposter übernommen.
+
+## Drei untersuchte Schutzschichten
+
+### 1. Dateisystem
+
+Das unveränderliche Dateiattribut sollte Änderungen und Löschungen verhindern. Mit Root-Rechten konnte der Agent das Attribut über `chattr` ändern und anschließend die Datei löschen. **Ergebnis: umgangen.**
+
+### 2. Kernel (eBPF LSM)
+
+Ein eBPF-LSM-Hook überwachte und blockierte Löschvorgänge wie `unlink`. Host-Administrationsrechte ermöglichten jedoch eine Änderung oder Entfernung des Schutzprogramms. **Ergebnis: umgangen.**
+
+### 3. Blockgerät
+
+Eine Nur-Lese-Einstellung sollte Schreibzugriffe verhindern. Der Agent konnte mit ausreichenden Rechten Geräte- oder Mount-Zustände ändern. **Ergebnis: umgangen.**
+
+## Fazit und Ausblick
+
+Die Ergebnisse gelten für die konkret getesteten Mechanismen und beweisen nicht, dass jeder hostseitige Schutz unwirksam ist. Als zukünftige Forschungsrichtungen schlagen wir **TEE-basierte Durchsetzung** und **unabhängige Schutzmechanismen in Flash-Speicher beziehungsweise Controllern** vor. Diese Ansätze wurden auf dem Poster noch nicht als wirksame Verteidigung bestätigt.
+
+**Autoren:** Zedong Zhou, Niusen Chen · **Institution:** University of Nevada, Reno.
+
+</div>
+
+<div class="blog-language-panel" data-blog-lang="fr" markdown="1">
+
+> **Poster de recherche** · Zedong Zhou et Niusen Chen · University of Nevada, Reno.
+
+**[Ouvrir le poster PDF original]({{ '/assets/blog/When%20AI%20Agents%20Go%20Rogue%20Who%20Protects%20Your%20Files.pdf' | relative_url }})** · **[Télécharger le PDF]({{ '/assets/blog/When%20AI%20Agents%20Go%20Rogue%20Who%20Protects%20Your%20Files.pdf' | relative_url }})**
+
+![Vue d'ensemble des trois protections testées]({{ '/assets/blog/ai-agents-go-rogue-poster-overview.svg' | relative_url }})
+
+*Cette illustration résume les travaux pour le Web ; le poster original se trouve dans le PDF.*
+
+## Résumé
+
+Les agents d’IA peuvent exécuter des commandes, gérer des fichiers et interagir avec le système d’exploitation. Lorsqu’un agent dispose des **privilèges root**, ces capacités peuvent menacer l’intégrité des données locales. Nous évaluons expérimentalement trois niveaux de protection contre la suppression de fichiers : système de fichiers, noyau et périphérique bloc.
+
+Dans la configuration testée, l’agent privilégié a contourné ou désactivé chacune des protections évaluées et supprimé le fichier cible. Les mécanismes contrôlés par le même hôte peuvent donc ne pas constituer une frontière de confiance indépendante.
+
+## Modèle de menace et environnement
+
+L’agent Claude Code dispose des droits root complets et peut utiliser des commandes shell et des interfaces d’administration. Le poster indique Ubuntu 26.04 LTS, Linux 7.0.0-22-generic, ext4 et claude-sonnet-4-6. Le fichier cible est un document texte contenant des informations sensibles simulées. Ces paramètres reprennent le poster original.
+
+## Trois niveaux de défense évalués
+
+### 1. Système de fichiers
+
+L’attribut immuable devait empêcher la modification ou la suppression. Avec les droits root, l’agent a pu modifier l’attribut via `chattr` puis supprimer le fichier. **Résultat : protection contournée.**
+
+### 2. Noyau (eBPF LSM)
+
+Un hook eBPF LSM surveillait et bloquait des suppressions comme `unlink`. Les droits d’administration permettaient toutefois de modifier ou de retirer le programme. **Résultat : protection contournée.**
+
+### 3. Périphérique bloc
+
+Une configuration en lecture seule devait bloquer les écritures. L’agent pouvait modifier l’état du périphérique ou du montage avec ses privilèges. **Résultat : protection contournée.**
+
+## Conclusion et perspectives
+
+Ces résultats concernent uniquement les mécanismes et la configuration étudiés : ils ne signifient pas que toute protection côté hôte est inefficace. Le poster propose d’explorer **une application des politiques dans un TEE** et **une protection indépendante au niveau de la mémoire flash ou du contrôleur de stockage**. Ces pistes ne constituent pas encore des défenses validées par cette étude.
+
+**Auteurs :** Zedong Zhou, Niusen Chen · **Affiliation :** University of Nevada, Reno.
 
 </div>
