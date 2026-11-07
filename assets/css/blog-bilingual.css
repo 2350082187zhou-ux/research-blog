@@ -1,7 +1,15 @@
 /* Exact bilingual article rendering, no translation service. */
-.blog-language-panel[data-blog-lang="zh"],[data-blog-locale="zh"]{display:none!important}
+.blog-language-panel[data-blog-lang]:not([data-blog-lang="en"]),[data-blog-locale]:not([data-blog-locale="en"]){display:none!important}
 html[lang="zh-CN"] .blog-language-panel[data-blog-lang="zh"],html[lang="zh-CN"] [data-blog-locale="zh"]{display:revert!important}
+html[lang="ja"] .blog-language-panel[data-blog-lang="ja"],html[lang="ja"] [data-blog-locale="ja"]{display:revert!important}
+html[lang="ko"] .blog-language-panel[data-blog-lang="ko"],html[lang="ko"] [data-blog-locale="ko"]{display:revert!important}
+html[lang="de"] .blog-language-panel[data-blog-lang="de"],html[lang="de"] [data-blog-locale="de"]{display:revert!important}
+html[lang="fr"] .blog-language-panel[data-blog-lang="fr"],html[lang="fr"] [data-blog-locale="fr"]{display:revert!important}
 html[lang="zh-CN"] .blog-language-panel[data-blog-lang="en"],html[lang="zh-CN"] [data-blog-locale="en"]{display:none!important}
+html[lang="ja"] .blog-language-panel[data-blog-lang="en"],html[lang="ja"] [data-blog-locale="en"]{display:none!important}
+html[lang="ko"] .blog-language-panel[data-blog-lang="en"],html[lang="ko"] [data-blog-locale="en"]{display:none!important}
+html[lang="de"] .blog-language-panel[data-blog-lang="en"],html[lang="de"] [data-blog-locale="en"]{display:none!important}
+html[lang="fr"] .blog-language-panel[data-blog-lang="en"],html[lang="fr"] [data-blog-locale="en"]{display:none!important}
 .blog-language-panel{min-width:0}
 .blog-language-panel pre{overflow-x:auto}
 .blog-language-panel .poster-viewer{margin:1.5rem 0;padding:1.2rem;border:1px solid #3b8199;border-radius:14px}
