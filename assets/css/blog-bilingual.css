@@ -1,4 +1,4 @@
-/* Exact bilingual article rendering, no translation service. */
+/* Six-language article and hero rendering, no translation API. */
 .blog-language-panel[data-blog-lang]:not([data-blog-lang="en"]),[data-blog-locale]:not([data-blog-locale="en"]){display:none!important}
 html[lang="zh-CN"] .blog-language-panel[data-blog-lang="zh"],html[lang="zh-CN"] [data-blog-locale="zh"]{display:revert!important}
 html[lang="ja"] .blog-language-panel[data-blog-lang="ja"],html[lang="ja"] [data-blog-locale="ja"]{display:revert!important}
@@ -16,3 +16,12 @@ html[lang="fr"] .blog-language-panel[data-blog-lang="en"],html[lang="fr"] [data-
 .blog-language-panel .poster-viewer object{max-width:100%}
 .blog-lang-status{font-size:12px;color:#9ed8e6;margin:0 0 18px}
 @media(max-width:600px){.blog-language-panel .poster-viewer object{height:480px}}
+
+/* Keep words embedded in the hero illustration consistent with the selected language. */
+html[lang="zh-CN"] .cyber-art{background-image:url('../images/cyber-linux-defense-zh.svg')}
+html[lang="ja"] .cyber-art{background-image:url('../images/cyber-linux-defense-ja.svg')}
+html[lang="ko"] .cyber-art{background-image:url('../images/cyber-linux-defense-ko.svg')}
+html[lang="de"] .cyber-art{background-image:url('../images/cyber-linux-defense-de.svg')}
+html[lang="fr"] .cyber-art{background-image:url('../images/cyber-linux-defense-fr.svg')}
+/* Localized content stays legible at the same headline size. */
+#hero-title [data-blog-locale],.hero-desc [data-blog-locale],.hero-stats [data-blog-locale]{vertical-align:baseline}
