@@ -265,7 +265,7 @@
        !['http:','https:'].includes(url.protocol)) return;
     const selected=document.querySelector('[data-site-language]')?.value || savedLanguage();
     if(!supported.includes(selected))return;
-    if(selected==='en')url.searchParams.delete('lang');
+    if(selected==='en' && url.hostname===location.hostname)url.searchParams.delete('lang');
     else url.searchParams.set('lang',selected);
     anchor.href=url.toString();
   },true);
