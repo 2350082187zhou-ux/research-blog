@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540" role="img" aria-labelledby="title desc">
+<title id="title">Secure file transfer between Windows and Ubuntu</title>
+<desc id="desc">Windows computer and Ubuntu virtual machine exchange experiment files through an encrypted SSH connection using SCP or SFTP. All identities are fictional.</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071a31"/><stop offset="1" stop-color="#123c5b"/></linearGradient><linearGradient id="panel" x1="0" x2="1"><stop stop-color="#11324e"/><stop offset="1" stop-color="#174c69"/></linearGradient></defs>
+<rect width="1200" height="540" rx="22" fill="url(#bg)"/>
+<text x="60" y="65" fill="#f3fbff" font-family="Arial,sans-serif" font-weight="700" font-size="34">Secure Linux File Sharing</text>
+<text x="60" y="98" fill="#a7c5d7" font-family="Arial,sans-serif" font-size="19">Windows ↔ Ubuntu VM  /  SSH · SCP · SFTP</text>
+<rect x="55" y="145" width="290" height="280" rx="22" fill="url(#panel)" stroke="#4c9ad2" stroke-width="2"/>
+<rect x="122" y="183" width="155" height="115" rx="9" fill="#102239" stroke="#87cdfa" stroke-width="5"/>
+<path d="M199 297v24m-40 1h80" stroke="#87cdfa" stroke-width="5"/>
+<path d="M150 218h47v24h-47zm53 0h47v24h-47zm-53 30h47v25h-47zm53 0h47v25h-47z" fill="#55c7ff"/>
+<text x="200" y="359" fill="#fff" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="24">Windows PC</text>
+<text x="200" y="387" fill="#b6d9e8" text-anchor="middle" font-family="Arial,sans-serif" font-size="17">PowerShell · OpenSSH client</text>
+<rect x="855" y="145" width="290" height="280" rx="22" fill="url(#panel)" stroke="#ec9c54" stroke-width="2"/>
+<rect x="925" y="183" width="150" height="116" rx="9" fill="#14253a" stroke="#ffba78" stroke-width="5"/>
+<text x="944" y="255" fill="#ffa95f" font-family="monospace" font-size="35">&gt;_</text>
+<path d="M1000 299v23m-38 0h76" stroke="#ffba78" stroke-width="5"/>
+<text x="1000" y="359" fill="#fff" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="24">Ubuntu VM</text>
+<text x="1000" y="387" fill="#b6d9e8" text-anchor="middle" font-family="Arial,sans-serif" font-size="17">OpenSSH server · Files</text>
+<path d="M365 265H835" stroke="#6be7c5" stroke-width="6" stroke-linecap="round"/>
+<path d="m388 250-23 15 23 15m424-30 23 15-23 15" fill="none" stroke="#6be7c5" stroke-width="6" stroke-linejoin="round"/>
+<rect x="453" y="169" width="294" height="62" rx="29" fill="#0e655e" stroke="#6be7c5"/>
+<text x="600" y="194" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="700" font-size="20">Encrypted connection</text>
+<text x="600" y="215" text-anchor="middle" fill="#c2ffef" font-family="Arial,sans-serif" font-size="16">SSH / SCP / SFTP</text>
+<rect x="420" y="301" width="360" height="77" rx="14" fill="#193f5b" stroke="#547f97"/>
+<text x="600" y="330" text-anchor="middle" fill="#f5fcff" font-family="Arial,sans-serif" font-size="20">Code · Research logs · Reports</text>
+<text x="600" y="357" text-anchor="middle" fill="#aad9eb" font-family="monospace" font-size="16">~/io-experiment/</text>
+<rect x="55" y="459" width="1090" height="42" rx="9" fill="#0c3146"/>
+<text x="600" y="487" text-anchor="middle" fill="#c5f3e7" font-family="Arial,sans-serif" font-size="17">Use approved networks and authenticated access · No real IP, hostname, domain or port disclosed</text>
+</svg>
