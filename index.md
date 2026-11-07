@@ -141,14 +141,14 @@ description: "Zedong Zhou's cybersecurity research blog: Linux kernel, eBPF, AI 
     {% if blog_posts.size > 0 %}
     <div class="posts-grid" id="searchable-posts">
       {% for post in blog_posts %}
-      <article class="post-card" data-search="{{ post.title | escape }} {{ post.excerpt | strip_html | escape }} {{ post.tags | join: ' ' | escape }}">
+      <article class="post-card" data-search="{{ post.title_en | default: post.title | escape }} {{ post.title_zh | escape }} {{ post.excerpt_en | default: post.excerpt | strip_html | escape }} {{ post.excerpt_zh | strip_html | escape }} {{ post.tags | join: ' ' | escape }}">
         <div class="post-picture">
           <svg viewBox="0 0 410 190" role="img" aria-label="Code and protected files" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="mini-{{ forloop.index }}" x2="1" y2="1"><stop stop-color="#006d6a"/><stop offset=".6" stop-color="#05314b"/><stop offset="1" stop-color="#050c1a"/></linearGradient></defs><rect width="410" height="190" fill="url(#mini-{{ forloop.index }})"/><g stroke="#27dcb0" stroke-opacity=".28">{% for i in (1..9) %}<path d="M{{ i | times: 42 }} 0v190"/>{% endfor %}</g><path d="M30 45h85m-85 17h133m-133 17h109m-109 17h77" stroke="#40e4c9" stroke-width="3" opacity=".55"/><g transform="translate(260 27)"><path d="M65 0l59 23v62c0 47-35 64-59 77C34 148 4 130 4 85V23Z" fill="#063e43" stroke="#43f6dc" stroke-width="3"/><rect x="41" y="68" width="49" height="46" rx="6" fill="#3bf7c8"/><path d="M51 69V56a15 15 0 1 1 30 0v13" stroke="#3bf7c8" stroke-width="7" fill="none"/></g></svg>
           <div class="tags"><span class="tag">Research Note</span>{% if post.categories.size > 0 %}<span class="tag secondary">{{ post.categories[0] | escape }}</span>{% endif %}</div>
         </div>
         <div class="post-content">
-          <h3><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
-          <p>{{ post.excerpt | strip_html | truncatewords: 27 }}</p>
+          <h3><a href="{{ post.url | relative_url }}"><span data-blog-locale="en">{{ post.title_en | default: post.title | escape }}</span><span data-blog-locale="zh">{{ post.title_zh | default: post.title | escape }}</span></a></h3>
+          <p><span data-blog-locale="en">{{ post.excerpt_en | default: post.excerpt | strip_html | truncatewords: 27 }}</span><span data-blog-locale="zh">{{ post.excerpt_zh | default: post.excerpt | strip_html | truncatewords: 40 }}</span></p>
           <div class="post-meta"><span>{{ post.date | date: "%b %d, %Y" }}</span><a class="card-jump" href="{{ post.url | relative_url }}" aria-label="Read {{ post.title | escape }}">→</a></div>
         </div>
       </article>
