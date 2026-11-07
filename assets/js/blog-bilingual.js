@@ -4,15 +4,15 @@
  'use strict';
  const langSelect = document.querySelector('.cyber-navbar [data-site-language]');
  if (!langSelect) return;
- if (langSelect.value !== 'en' && langSelect.value !== 'zh') {
-   langSelect.value='en';
-   langSelect.dispatchEvent(new Event('change',{bubbles:true}));
- }
  const labels = {
   en: {back:'← Back to Blog',notes:'Research notes',journal:'Research journal',all:'← All research notes',poster:'Open poster PDF ↗',summary:'Research poster overview',feature:'Featured research'},
-  zh: {back:'← 返回博客',notes:'研究笔记',journal:'研究日志',all:'← 所有研究笔记',poster:'打开原始海报 PDF ↗',summary:'科研海报概览',feature:'重点研究'}
+  zh: {back:'← 返回博客',notes:'研究笔记',journal:'研究日志',all:'← 所有研究笔记',poster:'打开原始海报 PDF ↗',summary:'科研海报概览',feature:'重点研究'},
+  ja: {back:'← ブログに戻る',notes:'研究ノート',journal:'研究記録',all:'← すべての記事',poster:'オリジナルPDFを開く ↗'},
+  ko: {back:'← 블로그로 돌아가기',notes:'연구 노트',journal:'연구 기록',all:'← 모든 글',poster:'원본 포스터 PDF 열기 ↗'},
+  de: {back:'← Zurück zum Blog',notes:'Forschungsnotizen',journal:'Forschungsjournal',all:'← Alle Artikel',poster:'Originalposter als PDF öffnen ↗'},
+  fr: {back:'← Retour au blog',notes:'Notes de recherche',journal:'Journal de recherche',all:'← Tous les articles',poster:'Ouvrir le poster PDF original ↗'}
  };
- function language() {return langSelect.value==='zh' ? 'zh' : 'en';}
+ function language() {return ['en','zh','ja','ko','de','fr'].includes(langSelect.value)?langSelect.value:'en';}
  const extraHome = {
   '.cyber-hud-panel .cyber-hud-heading': ['Kernel defense · eBPF / LSM','内核防护 · eBPF / LSM'],
   '.cyber-hud-panel small': ['CONCEPT VISUALIZATION · NOT LIVE DATA','概念示意图 · 非实时数据'],
@@ -35,7 +35,7 @@
  }
  function apply(){
   const lang=language();
-  document.documentElement.lang=lang==='zh'?'zh-CN':'en';
+  document.documentElement.lang=lang==='zh'?'zh-CN':lang;
   document.querySelectorAll('[data-blog-lang]').forEach(el=>{
     const visible=el.getAttribute('data-blog-lang')===lang;
     el.hidden=!visible;
