@@ -5,9 +5,9 @@ layout: cyber-blog
   <div class="article-breadcrumb"><a href="https://blog.zhouzedong.top/">← Back to Blog</a><span> / Research notes</span></div>
   <header class="article-head">
     <div class="eyebrow">Research journal</div>
-    <h1><span data-blog-locale="en">{{ page.title_en | default: page.title | escape }}</span><span data-blog-locale="zh">{{ page.title_zh | default: page.title | escape }}</span></h1>
+    <h1><span data-blog-locale="en">{{ page.title_en | default: page.title | escape }}</span><span data-blog-locale="zh">{{ page.title_zh | default: page.title | escape }}</span><span data-blog-locale="ja">{{ page.title_ja | default: page.title | escape }}</span><span data-blog-locale="ko">{{ page.title_ko | default: page.title | escape }}</span><span data-blog-locale="de">{{ page.title_de | default: page.title | escape }}</span><span data-blog-locale="fr">{{ page.title_fr | default: page.title | escape }}</span></h1>
     <div class="article-byline"><span>Zedong Zhou</span><span>{{ page.date | date: "%B %d, %Y" }}</span>{% if page.tags %}<span>{{ page.tags | join: " · " }}</span>{% endif %}</div>
-    {% if page.excerpt %}<p class="article-lead"><span data-blog-locale="en">{{ page.excerpt_en | default: page.excerpt | strip_html }}</span><span data-blog-locale="zh">{{ page.excerpt_zh | default: page.excerpt | strip_html }}</span></p>{% endif %}
+    {% if page.excerpt %}<p class="article-lead"><span data-blog-locale="en">{{ page.excerpt_en | default: page.excerpt | strip_html }}</span><span data-blog-locale="zh">{{ page.excerpt_zh | default: page.excerpt | strip_html }}</span><span data-blog-locale="ja">{{ page.excerpt_ja | default: page.excerpt | strip_html }}</span><span data-blog-locale="ko">{{ page.excerpt_ko | default: page.excerpt | strip_html }}</span><span data-blog-locale="de">{{ page.excerpt_de | default: page.excerpt | strip_html }}</span><span data-blog-locale="fr">{{ page.excerpt_fr | default: page.excerpt | strip_html }}</span></p>{% endif %}
   </header>
   <div class="article-paper">{{ content }}</div>
   <footer class="article-end"><a href="https://blog.zhouzedong.top/">← All research notes</a></footer>
