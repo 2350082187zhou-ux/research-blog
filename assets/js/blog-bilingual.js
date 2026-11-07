@@ -30,7 +30,7 @@
  function extraTranslations(lang){
   Object.entries(extraHome).forEach(([selector,pair])=>document.querySelectorAll(selector).forEach(el=>{
    if(!originalText.has(el)) originalText.set(el,el.textContent);
-   if(pair[0]) el.textContent=lang==='zh'?pair[1]:originalText.get(el);
+   if(pair[0] && (lang==='zh'||lang==='en')) el.textContent=lang==='zh'?pair[1]:originalText.get(el);
   }));
  }
  function apply(){
