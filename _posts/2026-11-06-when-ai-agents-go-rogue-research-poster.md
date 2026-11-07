@@ -10,6 +10,17 @@ author_profile: true
 
 > **Research poster** · Zedong Zhou and Niusen Chen · Department of Computer Science and Engineering, University of Nevada, Reno.
 
+{% assign original_poster_pdf = site.static_files | where: "path", "/assets/blog/when-ai-agents-go-rogue-poster.pdf" | first %}
+{% if original_poster_pdf %}
+<div style="margin:1.5rem 0;padding:1.2rem;border:1px solid #3b8199;border-radius:14px">
+  <strong>Original research poster (PDF)</strong>
+  <p><a href="{{ '/assets/blog/when-ai-agents-go-rogue-poster.pdf' | relative_url }}" target="_blank" rel="noopener">Open the complete poster PDF ↗</a> · <a href="{{ '/assets/blog/when-ai-agents-go-rogue-poster.pdf' | relative_url }}" download>Download PDF</a></p>
+  <object data="{{ '/assets/blog/when-ai-agents-go-rogue-poster.pdf' | relative_url }}" type="application/pdf" width="100%" height="760"><p>Your browser cannot preview PDFs. <a href="{{ '/assets/blog/when-ai-agents-go-rogue-poster.pdf' | relative_url }}">Open the PDF</a>.</p></object>
+</div>
+{% else %}
+> The original PDF is pending publication. The graphic below is a web-friendly conceptual overview; the complete research content is summarized in this post.
+{% endif %}
+
 ![Poster overview showing root-privileged AI agents bypassing file-system, kernel, and block-device file protections]({{ '/assets/blog/ai-agents-go-rogue-poster-overview.svg' | relative_url }})
 
 *Figure: Web-friendly conceptual overview adapted from the uploaded one-page poster. This is not an image of the original PDF poster.*
@@ -79,4 +90,4 @@ These are proposed research directions, not experimentally validated defenses in
 **Authors:** Zedong Zhou, Niusen Chen  
 **Affiliation:** Department of Computer Science and Engineering, University of Nevada, Reno.
 
-This page publishes the poster's research content and a newly prepared web overview graphic. The original PDF attachment has **not** been uploaded to the public site, so no PDF download is claimed here.
+This page publishes the poster's research content and a newly prepared web overview graphic. When the original PDF is added to the blog's public assets, the viewer and download links above will appear automatically.
