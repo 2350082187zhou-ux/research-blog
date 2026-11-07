@@ -108,7 +108,7 @@ description: "Zedong Zhou's cybersecurity research blog: Linux kernel, eBPF, AI 
         <span class="feature-overline"><span class="status-pip" aria-hidden="true"></span> FEATURED INVESTIGATION · SYSTEMS SECURITY</span>
         <h2 id="investigation-title">When AI Agents Go Rogue:<br><span>Who Protects Your Files?</span></h2>
         <p>An empirical investigation into the limits of host-side data protection when an AI agent has root privileges. Explore the path from agent actions through Linux security controls to persistent storage.</p>
-        <div class="feature-links"><a class="feature-primary" href="https://zhouzedong.top/research/">Explore this research <span aria-hidden="true">↗</span></a><a class="feature-secondary" href="https://zhouzedong.top/publications/">Publications <span aria-hidden="true">→</span></a></div>
+        <div class="feature-links"><a class="feature-primary" href="{% post_url 2026-11-06-when-ai-agents-go-rogue-research-poster %}">View research poster <span aria-hidden="true">↗</span></a><a class="feature-secondary" href="https://zhouzedong.top/research/">Explore research <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="feature-console" aria-label="Research questions">
         <div class="console-top"><span>root@research-lab</span><span>~/threat-model</span></div>
@@ -118,7 +118,7 @@ description: "Zedong Zhou's cybersecurity research blog: Linux kernel, eBPF, AI 
         <div class="console-status">RESEARCH QUESTIONS / NO LIVE SYSTEM ACCESS</div>
       </div>
     </div>
-    <figure class="security-map">
+    <figure class="security-map"><a href="{% post_url 2026-11-06-when-ai-agents-go-rogue-research-poster %}" aria-label="View research poster overview" style="display:block;margin-bottom:16px"><img src="{{ '/assets/blog/ai-agents-go-rogue-poster-overview.svg' | relative_url }}" width="1200" height="650" alt="Overview of the AI agent file protection research poster" loading="lazy" style="display:block;width:100%;height:auto;border-radius:16px"></a>
       <div class="security-map-hint" aria-hidden="true"><span>↔</span> Swipe horizontally to explore each security layer</div>
       <div class="security-map-viewport" role="region" aria-label="Scrollable research diagram showing the path from AI agent privileges to storage trust boundaries" tabindex="0">
         <img src="{{ '/assets/images/agent-storage-trust-boundary-v2.svg' | relative_url }}" width="1600" height="610" alt="Research diagram: an AI agent with root privileges issues system calls that cross the Linux LSM and block I/O layers, reaching a possible independent device trust boundary." decoding="async" loading="lazy">
