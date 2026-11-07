@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 615" role="img" aria-labelledby="t d">
+<title id="t">Redacted browser file sharing example</title>
+<desc id="d">Illustrative browser directory listing at http://EXAMPLE_HOST:PORT/ with fictional folders and download instructions. No real IP address, port or filenames.</desc>
+<rect width="1120" height="615" fill="#0b1d32" rx="24"/>
+<text x="54" y="60" font-family="Arial,sans-serif" font-size="32" font-weight="700" fill="#eef9ff">Browser-based file sharing · HTTP</text>
+<text x="54" y="97" font-family="Arial,sans-serif" font-size="17" fill="#9ec3d5">Sanitized demonstration — not a live server or real directory listing</text>
+<rect x="56" y="131" width="1008" height="421" rx="18" fill="#fcfdff"/>
+<rect x="56" y="131" width="1008" height="67" rx="18" fill="#e8eef5"/>
+<rect x="56" y="173" width="1008" height="25" fill="#e8eef5"/>
+<circle cx="89" cy="165" r="9" fill="#f08c82"/><circle cx="117" cy="165" r="9" fill="#eabd64"/><circle cx="145" cy="165" r="9" fill="#8acaa1"/>
+<rect x="180" y="146" width="852" height="36" rx="10" fill="#fff" stroke="#bed1dc"/>
+<text x="202" y="170" font-family="Consolas,monospace" font-size="19" fill="#2f536f">http://&lt;HOST_IP&gt;:&lt;PORT&gt;/</text>
+<text x="89" y="255" font-family="Arial,sans-serif" font-size="34" font-weight="700" fill="#1b2e3c">Directory listing for /</text>
+<path d="M89 278H1030" stroke="#d9e1e9" stroke-width="2"/>
+<g font-family="Arial,sans-serif" font-size="23" fill="#1767a3" text-decoration="underline">
+<text x="135" y="332">public-reports/</text><text x="135" y="386">example-code/</text><text x="135" y="440">sample-data/</text><text x="135" y="494">README.txt</text>
+</g>
+<g fill="#7393ac"><path d="M90 314h21l7 8h21v18H90z"/><path d="M90 368h21l7 8h21v18H90z"/><path d="M90 422h21l7 8h21v18H90z"/><rect x="93" y="472" width="29" height="30" rx="3"/></g>
+<rect x="56" y="568" width="1008" height="31" rx="7" fill="#143f55"/>
+<text x="560" y="589" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#d4f6f4">Anyone who can reach this unauthenticated HTTP server may browse downloadable files in the shared directory.</text>
+</svg>
