@@ -245,13 +245,32 @@
     }
     document.dispatchEvent(new CustomEvent('zedong:language-changed',{detail:{lang}}));
   }
+  // Shared first-party preference cookie across zhouzedong.top and blog.zhouzedong.top.
+  // The URL parameter remains a fallback when cookies are disabled.
+  function setSharedLanguage(lang){
+    try{
+      if(location.hostname==='zhouzedong.top'||location.hostname.endsWith('.zhouzedong.top')){
+        document.cookie='zz_site_lang='+encodeURIComponent(lang)+'; Path=/; Domain=zhouzedong.top; Max-Age=31536000; SameSite=Lax; Secure';
+      }
+    }catch(_){}
+  }
+  function getSharedLanguage(){
+    try{
+      const match=document.cookie.split('; ').find(v=>v.startsWith('zz_site_lang='));
+      if(match){const lang=decodeURIComponent(match.slice('zz_site_lang='.length));if(supported.includes(lang))return lang;}
+    }catch(_){}
+    return null;
+  }
   function savedLanguage(){
     const url = new URL(location.href);
     const requested=url.searchParams.get('lang');
     if(supported.includes(requested)){
       try{localStorage.setItem('zz_site_lang',requested);}catch(_){}
+      setSharedLanguage(requested);
       return requested;
     }
+    const shared=getSharedLanguage();
+    if(shared)return shared;
     try {const stored=localStorage.getItem('zz_site_lang');if(supported.includes(stored))return stored;}catch(_){}
     return 'en';
   }
@@ -272,6 +291,7 @@
   document.querySelectorAll('[data-site-language]').forEach(el=>el.addEventListener('change',()=>{
     const lang=supported.includes(el.value)?el.value:'en';
     try{localStorage.setItem('zz_site_lang',lang);}catch(_){}
+    setSharedLanguage(lang);
     const url=new URL(location.href);
     if(lang==='en')url.searchParams.delete('lang');else url.searchParams.set('lang',lang);
     history.replaceState(null,'',url.pathname+url.search+url.hash);
