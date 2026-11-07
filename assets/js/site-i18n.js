@@ -1,11 +1,13 @@
-/* Zedong Zhou | Four-language interface | No translation API or data transfer. */
+/* Zedong Zhou | Six-language interface | No translation API or data transfer. */
 (() => {
   'use strict';
-  const supported = ['en', 'zh', 'fr', 'de'];
+  const supported = ['en', 'zh', 'ja', 'ko', 'de', 'fr'];
   const originals = new WeakMap();
   const nav = {
     en: {about:'About',research:'Research',publications:'Publications',blog:'Blog',deadlines:'Security Deadlines',cv:'CV'},
     zh: {about:'关于我',research:'研究方向',publications:'学术论文',blog:'技术博客',deadlines:'会议截稿日',cv:'简历'},
+    ja: {about:'自己紹介',research:'研究',publications:'論文',blog:'ブログ',deadlines:'投稿締切',cv:'履歴書'},
+    ko: {about:'소개',research:'연구',publications:'논문',blog:'블로그',deadlines:'학회 마감일',cv:'이력서'},
     fr: {about:'À propos',research:'Recherche',publications:'Publications',blog:'Blog',deadlines:'Conférences',cv:'CV'},
     de: {about:'Über mich',research:'Forschung',publications:'Publikationen',blog:'Blog',deadlines:'Konferenztermine',cv:'Lebenslauf'}
   };
@@ -236,10 +238,27 @@
   function savedLanguage(){
     const url = new URL(location.href);
     const requested=url.searchParams.get('lang');
-    if(supported.includes(requested))return requested;
+    if(supported.includes(requested)){
+      try{localStorage.setItem('zz_site_lang',requested);}catch(_){}
+      return requested;
+    }
     try {const stored=localStorage.getItem('zz_site_lang');if(supported.includes(stored))return stored;}catch(_){}
     return 'en';
   }
+  // Carry the selected language between the academic site and its blog subdomain.
+  // Browser storage is origin-scoped; ?lang= bridges the two origins without a server.
+  document.addEventListener('click', event => {
+    const anchor=event.target.closest('a[href]');
+    if(!anchor || event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const url=new URL(anchor.href,location.href);
+    if(!['zhouzedong.top','www.zhouzedong.top','blog.zhouzedong.top'].includes(url.hostname) ||
+       !['http:','https:'].includes(url.protocol)) return;
+    const selected=document.querySelector('[data-site-language]')?.value || savedLanguage();
+    if(!supported.includes(selected))return;
+    if(selected==='en')url.searchParams.delete('lang');
+    else url.searchParams.set('lang',selected);
+    anchor.href=url.toString();
+  },true);
   document.querySelectorAll('[data-site-language]').forEach(el=>el.addEventListener('change',()=>{
     const lang=supported.includes(el.value)?el.value:'en';
     try{localStorage.setItem('zz_site_lang',lang);}catch(_){}
