@@ -3,12 +3,20 @@ layout: cyber-post
 title: "Ubuntu File Sharing: SSH, SCP, SFTP and Browser Downloads"
 title_en: "Ubuntu File Sharing: SSH, SCP, SFTP and Browser Downloads"
 title_zh: "Ubuntu 文件共享实战：SSH、SCP、SFTP 与浏览器 HTTP 下载"
+title_ja: "Ubuntuのファイル共有：SSH・SCP・SFTPとブラウザダウンロード"
+title_ko: "Ubuntu 파일 공유: SSH·SCP·SFTP 및 브라우저 다운로드"
+title_de: "Dateifreigabe unter Ubuntu: SSH, SCP, SFTP und Browser-Downloads"
+title_fr: "Partager des fichiers sous Ubuntu : SSH, SCP, SFTP et téléchargement Web"
 date: 2026-11-06
 categories: [Linux]
 tags: [Ubuntu, VMware, SSH, SCP, SFTP, HTTP, File Sharing, Networking]
 excerpt: "A practical guide to secure transfers and browser-based downloads from an Ubuntu VM, with redacted network identifiers."
 excerpt_en: "A practical guide to secure transfers and browser-based downloads from an Ubuntu VM, with redacted network identifiers."
 excerpt_zh: "在 Ubuntu 中使用 SSH/SCP/SFTP 传输文件，或通过 IP 与端口从浏览器下载实验文件；全部示例均已脱敏。"
+excerpt_ja: "Ubuntu仮想マシンとWindows間の安全な転送、IPとポートを使ったブラウザでのダウンロードを紹介します。"
+excerpt_ko: "Ubuntu와 Windows 사이의 안전한 파일 전송과 IP·포트를 이용한 브라우저 다운로드를 설명합니다."
+excerpt_de: "Anleitung zu verschlüsselten Transfers und Browser-Downloads zwischen Windows und einer Ubuntu-VM – mit anonymisierten Netzwerkangaben."
+excerpt_fr: "Guide du transfert sécurisé et du téléchargement Web entre Windows et une VM Ubuntu, avec les informations réseau masquées."
 author_profile: true
 ---
 
@@ -381,5 +389,333 @@ http://<HOST_IP>:<PORT>/
 这次 VMware Ubuntu 实验确认了主机名查询、名称解析以及 ICMP 响应。后续浏览器截图还展示了通过 **IP 地址 + 端口** 打开 Ubuntu 文件目录列表的效果。可使用 Python `http.server` 在可信实验网络里演示目录浏览与下载；需要加密和认证时，应选用 SSH/SCP/SFTP。
 
 真正跨设备的远程登录与文件传输仍需要从客户端验证；本文给出的命令是操作指南，而不是对尚未进行测试的结果作出声明。
+
+</div>
+
+<div class="blog-language-panel" data-blog-lang="ja" markdown="1">
+
+> **プライバシー保護：** 実際のIPアドレス、内部ホスト名、ポート番号、個人用ディレクトリ名、未加工のスクリーンショットは公開していません。以下は架空の例です。
+
+![WindowsとUbuntuの暗号化されたファイル転送]({{ '/assets/blog/secure-ubuntu-file-transfer.svg' | relative_url }})
+
+## はじめに
+
+LinuxのI/O実験では、Ubuntu仮想マシンとWindowsの間でコード、ログ、レポートを転送することがあります。SSH/SCP/SFTPは認証と暗号化を提供します。一方、Pythonの一時HTTPサーバーを使えば、信頼できるネットワーク内でブラウザからファイル一覧を表示し、ダウンロードできます。
+
+最初の画面はホスト名の解決とICMP応答を示し、次の画面ではブラウザにディレクトリ一覧が表示されました。**画面だけではSSH転送やダウンロード完了までは証明できません。**
+
+## 1. ホスト名とネットワークの確認
+
+Ubuntu上で `hostname` と `pwd` を実行し、必要に応じて `ping -c 2 lab-vm.example.invalid` で名前解決とICMP応答を確認します。`example.invalid` は実際には接続できないダミードメインです。
+
+記録された実験では2回の応答があり、パケット損失は0%、平均往復時間は約0.404 msでした。ただし、これは外部からSSH接続できることを意味しません。
+
+## 2. SSHサーバーの設定
+
+管理権限のあるUbuntuでのみ次の操作を行います。
+
+```bash
+hostname
+pwd
+# SSH server (on a host you administer)
+sudo apt update
+sudo apt install openssh-server
+sudo systemctl enable --now ssh
+```
+
+SSHサービスが稼働しても、ファイアウォールやVMのNAT/ブリッジ設定によっては他のコンピューターからアクセスできません。公開ネットワークへの不要な公開を避け、公開鍵認証を推奨します。
+
+## 3. Windowsから接続・転送
+
+Windows PowerShellで実行します。ホスト名とユーザー名は権限のある実機の情報へ置き換え、初回接続時はサーバーの鍵指紋を安全な経路で確認してください。
+
+```powershell
+ssh labuser@YOUR_AUTHORIZED_HOST
+scp labuser@YOUR_AUTHORIZED_HOST:~/io-experiment/result.txt "$HOME\Downloads\"
+scp -r labuser@YOUR_AUTHORIZED_HOST:~/io-experiment "$HOME\Downloads\"
+scp "$HOME\Documents\test.txt" labuser@YOUR_AUTHORIZED_HOST:~/io-experiment/
+sftp labuser@YOUR_AUTHORIZED_HOST
+```
+
+SCPはファイルまたはディレクトリをコピーし、SFTPは対話的な転送に使えます。ファイルの整合性を確認する場合は両端でSHA-256を比較します。
+
+## 4. IPアドレスとポートを入力してブラウザからダウンロード
+
+別の実験画面には、`Directory listing for /` というタイトルでディレクトリへのリンクが表示されていました。実際のアドレス・ポート・フォルダ名を隠すため、公開ページには次のサンプル画像のみを載せます。
+
+![匿名化されたHTTPディレクトリ一覧]({{ '/assets/blog/http-directory-listing-redacted.svg' | relative_url }})
+
+まず、共有許可されたファイルだけを入れた専用ディレクトリを用意し、一時HTTPサーバーを起動します。
+
+```bash
+mkdir -p ~/public-share
+# Copy only files approved for sharing into ~/public-share
+SHARE_IP="YOUR_AUTHORIZED_PRIVATE_IP"
+SHARE_PORT="YOUR_APPROVED_PORT"
+python3 -m http.server "$SHARE_PORT" --bind "$SHARE_IP" --directory "$HOME/public-share"
+```
+
+次に、許可された別のコンピューターのブラウザで以下にアクセスします。
+
+```text
+http://<HOST_IP>:<PORT>/
+```
+
+`HOST_IP` と `PORT` は**プレースホルダー**です。実際のIPと待受ポートが必要で、ネットワーク到達性とファイアウォール設定にも依存します。ディレクトリ内のファイルをクリックすると、形式とブラウザ設定に応じて表示またはダウンロードされます。
+
+終了時はHTTPサーバーの端末で `Ctrl+C` を押します。
+
+## 5. セキュリティ上の注意
+
+Pythonの `http.server` には、既定でログイン認証もHTTPS暗号化もありません。アクセス可能な利用者は公開したディレクトリ内を閲覧・ダウンロードできる可能性があります。機密ファイルは共有しないでください。重要なデータにはSSH/SFTP、または適切に保護されたファイルサービスを使ってください。
+
+## まとめ
+
+実験では、Ubuntuの名前解決・ICMP応答とHTTPディレクトリ一覧を確認しました。暗号化と認証が必要な転送にはSSH/SCP/SFTP、限定された信頼ネットワークでの簡単な共有には一時HTTPサーバーが使えます。
+
+</div>
+
+<div class="blog-language-panel" data-blog-lang="ko" markdown="1">
+
+> **개인정보 보호:** 실제 IP 주소, 내부 호스트 이름, 포트 번호, 민감한 폴더 이름 및 원본 화면 사진은 공개하지 않습니다. 모든 주소는 예시입니다.
+
+![Windows와 Ubuntu 사이의 암호화된 파일 전송]({{ '/assets/blog/secure-ubuntu-file-transfer.svg' | relative_url }})
+
+## 개요
+
+Linux I/O 실험에서는 Windows와 Ubuntu 가상 머신 사이에 코드, 로그와 보고서를 전송해야 할 때가 많습니다. SSH/SCP/SFTP는 인증과 암호화를 제공하며, 신뢰할 수 있는 네트워크에서는 Python의 임시 HTTP 서버로 브라우저 다운로드를 제공할 수도 있습니다.
+
+첫 번째 실험은 호스트 이름 확인, DNS/ICMP 응답을 보여 줍니다. 두 번째 스크린샷은 브라우저의 디렉터리 목록을 보여 주지만, **그 자체로 SSH 전송이나 다운로드 완료를 입증하지는 않습니다.**
+
+## 1. 호스트 이름과 연결 확인
+
+Ubuntu에서 `hostname`, `pwd`를 실행하고 `ping -c 2 lab-vm.example.invalid`로 이름 확인과 ICMP 응답을 점검할 수 있습니다. `example.invalid`는 실제 연결에 사용할 수 없는 예시 도메인입니다.
+
+기록된 테스트에서 ICMP 응답 2개가 수신되었고 손실률은 0%, 평균 왕복 시간은 약 0.404 ms였습니다. 다른 컴퓨터에서 SSH 접속이 가능하다는 뜻은 아닙니다.
+
+## 2. Ubuntu에서 SSH 서비스 실행
+
+관리 권한이 있는 Ubuntu에서만 실행합니다.
+
+```bash
+hostname
+pwd
+# SSH server (on a host you administer)
+sudo apt update
+sudo apt install openssh-server
+sudo systemctl enable --now ssh
+```
+
+서비스가 실행 중이어도 가상 머신의 NAT/브리지 설정이나 방화벽 때문에 외부 접속이 제한될 수 있습니다. 불필요한 공용 인터넷 노출을 피하고 SSH 공개키 인증을 권장합니다.
+
+## 3. Windows에서 접속 및 파일 전송
+
+Windows PowerShell에서 실행합니다. 예시 사용자 이름과 호스트를 승인된 실제 정보로 변경하고, 처음 접속할 때 서버 호스트 키 지문을 확인하세요.
+
+```powershell
+ssh labuser@YOUR_AUTHORIZED_HOST
+scp labuser@YOUR_AUTHORIZED_HOST:~/io-experiment/result.txt "$HOME\Downloads\"
+scp -r labuser@YOUR_AUTHORIZED_HOST:~/io-experiment "$HOME\Downloads\"
+scp "$HOME\Documents\test.txt" labuser@YOUR_AUTHORIZED_HOST:~/io-experiment/
+sftp labuser@YOUR_AUTHORIZED_HOST
+```
+
+SCP는 단일 파일과 폴더 복사에 사용하고 SFTP는 대화형 전송에 사용합니다. 중요한 파일은 양쪽에서 SHA-256 해시를 비교할 수 있습니다.
+
+## 4. IP 주소와 포트로 브라우저 파일 다운로드
+
+브라우저 화면에는 `Directory listing for /`와 클릭 가능한 폴더 링크가 나타났습니다. 원본의 실제 네트워크 정보는 공개하지 않고 아래의 가상 예시 이미지만 사용합니다.
+
+![익명화된 HTTP 디렉터리 목록 예시]({{ '/assets/blog/http-directory-listing-redacted.svg' | relative_url }})
+
+공유하도록 승인된 파일만 전용 폴더에 두고 임시 HTTP 서버를 실행합니다.
+
+```bash
+mkdir -p ~/public-share
+# Copy only files approved for sharing into ~/public-share
+SHARE_IP="YOUR_AUTHORIZED_PRIVATE_IP"
+SHARE_PORT="YOUR_APPROVED_PORT"
+python3 -m http.server "$SHARE_PORT" --bind "$SHARE_IP" --directory "$HOME/public-share"
+```
+
+접속 권한이 있는 다른 컴퓨터에서 브라우저 주소창에 다음을 입력합니다.
+
+```text
+http://<HOST_IP>:<PORT>/
+```
+
+`HOST_IP`와 `PORT`는 실제 값이 아닌 **자리 표시자**입니다. 네트워크 연결, 가상 머신 설정과 방화벽 규칙이 맞아야 합니다. 파일을 클릭하면 브라우저와 파일 형식에 따라 미리 보거나 다운로드할 수 있습니다.
+
+공유가 끝나면 서버를 실행한 터미널에서 `Ctrl+C`를 누릅니다.
+
+## 5. 보안 주의 사항
+
+Python `http.server`에는 기본적으로 로그인 인증이나 HTTPS 암호화가 없습니다. 해당 네트워크 주소에 접근할 수 있는 사용자는 공유 디렉터리의 파일을 열람하거나 다운로드할 수 있습니다. 민감한 정보는 공유하지 말고 SSH/SFTP 또는 적절하게 보호된 서버를 사용하세요.
+
+## 결론
+
+실험에서는 Ubuntu 호스트 이름과 ICMP 응답, 브라우저 디렉터리 목록을 확인했습니다. 인증과 암호화가 필요하면 SSH/SCP/SFTP를 사용하고, 임시 브라우저 공유는 신뢰할 수 있는 네트워크의 비민감 파일로 제한해야 합니다.
+
+</div>
+
+<div class="blog-language-panel" data-blog-lang="de" markdown="1">
+
+> **Datenschutz:** Echte IP-Adressen, interne Hostnamen, Ports, vertrauliche Ordnernamen und unveränderte Bildschirmfotos werden nicht veröffentlicht. Alle Angaben sind Beispiele.
+
+![Verschlüsselter Dateitransfer zwischen Windows und Ubuntu]({{ '/assets/blog/secure-ubuntu-file-transfer.svg' | relative_url }})
+
+## Einführung
+
+Bei Linux-I/O-Experimenten müssen Skripte, Protokolle und Berichte häufig zwischen Windows und einer Ubuntu-VM übertragen werden. SSH/SCP/SFTP bieten Authentifizierung und verschlüsselte Übertragung. In einem vertrauenswürdigen privaten Netzwerk erlaubt ein temporärer Python-HTTP-Server zusätzlich Downloads im Browser.
+
+Der erste Test bestätigt Hostname, Namensauflösung und ICMP-Antworten. Ein späteres Bildschirmfoto zeigt eine Verzeichnisliste im Browser. **Daraus lässt sich jedoch weder ein abgeschlossener Download noch eine SSH-Übertragung ableiten.**
+
+## 1. Hostname und Netzwerk prüfen
+
+Mit `hostname` und `pwd` werden Hostname und Verzeichnis angezeigt. `ping -c 2 lab-vm.example.invalid` dient als Beispiel für eine ICMP-Prüfung. Die Domain `example.invalid` ist absichtlich ungültig.
+
+Im aufgezeichneten Versuch kamen zwei Antworten bei 0 % Paketverlust an; die durchschnittliche Antwortzeit betrug etwa 0,404 ms. Das beweist keine Erreichbarkeit des SSH-Dienstes von einem anderen Rechner.
+
+## 2. SSH unter Ubuntu einrichten
+
+Nur auf einem von Ihnen verwalteten Ubuntu-System ausführen:
+
+```bash
+hostname
+pwd
+# SSH server (on a host you administer)
+sudo apt update
+sudo apt install openssh-server
+sudo systemctl enable --now ssh
+```
+
+Ob andere Rechner zugreifen können, hängt zusätzlich von Firewall, VM-Netzwerkmodus und den Sicherheitsrichtlinien ab. Vermeiden Sie die unnötige Veröffentlichung im Internet und bevorzugen Sie SSH-Schlüssel.
+
+## 3. Verbindung und Dateiübertragung unter Windows
+
+Folgende Befehle werden in Windows PowerShell verwendet. Ersetzen Sie Platzhalter durch autorisierte Angaben und überprüfen Sie bei der ersten Verbindung den Host-Schlüssel-Fingerabdruck.
+
+```powershell
+ssh labuser@YOUR_AUTHORIZED_HOST
+scp labuser@YOUR_AUTHORIZED_HOST:~/io-experiment/result.txt "$HOME\Downloads\"
+scp -r labuser@YOUR_AUTHORIZED_HOST:~/io-experiment "$HOME\Downloads\"
+scp "$HOME\Documents\test.txt" labuser@YOUR_AUTHORIZED_HOST:~/io-experiment/
+sftp labuser@YOUR_AUTHORIZED_HOST
+```
+
+SCP kopiert Dateien und Verzeichnisse; SFTP ermöglicht eine interaktive Übertragung. Bei wichtigen Daten können SHA-256-Prüfsummen verglichen werden.
+
+## 4. Dateien über IP-Adresse und Port im Browser herunterladen
+
+Der weitere Versuch zeigt eine Seite mit dem Titel `Directory listing for /` und anklickbaren Ordnern. Die öffentliche Abbildung enthält keine echten Netzwerkadressen oder Forschungsordner:
+
+![Anonymisierte HTTP-Verzeichnisliste]({{ '/assets/blog/http-directory-listing-redacted.svg' | relative_url }})
+
+Bereiten Sie ein Verzeichnis mit ausschließlich freigegebenen Dateien vor und starten Sie einen temporären HTTP-Server:
+
+```bash
+mkdir -p ~/public-share
+# Copy only files approved for sharing into ~/public-share
+SHARE_IP="YOUR_AUTHORIZED_PRIVATE_IP"
+SHARE_PORT="YOUR_APPROVED_PORT"
+python3 -m http.server "$SHARE_PORT" --bind "$SHARE_IP" --directory "$HOME/public-share"
+```
+
+Geben Sie auf einem berechtigten Client im Browser Folgendes ein:
+
+```text
+http://<HOST_IP>:<PORT>/
+```
+
+`HOST_IP` und `PORT` sind **Platzhalter** und müssen durch die genehmigten privaten Netzwerkdaten ersetzt werden. VM-NAT, Bridge-Modus und Firewalls beeinflussen die Erreichbarkeit. Dateien können je nach Browser angezeigt oder heruntergeladen werden. Beenden Sie den Server anschließend mit `Ctrl+C`.
+
+## 5. Sicherheitsgrenzen
+
+Pythons `http.server` besitzt standardmäßig weder Anmeldung noch HTTPS-Verschlüsselung. Jeder, der den Server erreichen kann, könnte die freigegebenen Dateien lesen und herunterladen. Für vertrauliche Inhalte sind SSH/SFTP oder ein abgesicherter Dateidienst vorzuziehen.
+
+## Fazit
+
+Bestätigt wurden Namensauflösung, ICMP-Antworten und eine sichtbare HTTP-Verzeichnisliste. Für geschützte Übertragungen eignen sich SSH/SCP/SFTP; temporäre HTTP-Freigaben sollten auf unkritische Dateien in einem vertrauenswürdigen Netzwerk begrenzt bleiben.
+
+</div>
+
+<div class="blog-language-panel" data-blog-lang="fr" markdown="1">
+
+> **Confidentialité :** les véritables adresses IP, noms d’hôte internes, ports, noms de dossiers sensibles et captures d’écran originales ne sont pas publiés. Toutes les données réseau présentées sont fictives.
+
+![Transfert chiffré entre Windows et Ubuntu]({{ '/assets/blog/secure-ubuntu-file-transfer.svg' | relative_url }})
+
+## Introduction
+
+Dans les expériences Linux et d’E/S, il faut souvent déplacer du code, des journaux et des rapports entre Windows et une machine virtuelle Ubuntu. SSH/SCP/SFTP permettent des transferts authentifiés et chiffrés. Sur un réseau privé de confiance, un serveur HTTP Python temporaire peut aussi proposer un téléchargement via le navigateur.
+
+Le premier test montre la résolution du nom d’hôte et les réponses ICMP. Une capture ultérieure affiche une liste de dossiers dans le navigateur. **Ces images ne prouvent ni le téléchargement complet d’un fichier ni la réussite d’une session SSH.**
+
+## 1. Vérifier le nom d’hôte et le réseau
+
+Les commandes `hostname` et `pwd` indiquent le nom de la machine et le dossier courant. `ping -c 2 lab-vm.example.invalid` illustre un test ICMP ; `example.invalid` est un domaine volontairement non fonctionnel.
+
+L’expérience enregistrée a reçu deux réponses, avec 0 % de perte et un temps aller-retour moyen d’environ 0,404 ms. Cela ne prouve pas qu’un service SSH soit accessible depuis un autre ordinateur.
+
+## 2. Activer SSH sur Ubuntu
+
+Sur un système Ubuntu que vous êtes autorisé à administrer :
+
+```bash
+hostname
+pwd
+# SSH server (on a host you administer)
+sudo apt update
+sudo apt install openssh-server
+sudo systemctl enable --now ssh
+```
+
+L’accès distant dépend également du pare-feu, du réseau NAT ou pont de la VM et de la politique de l’établissement. Évitez toute exposition inutile à Internet et privilégiez les clés SSH.
+
+## 3. Se connecter et transférer depuis Windows
+
+Dans Windows PowerShell, remplacez les identifiants fictifs par ceux d’une machine autorisée et vérifiez l’empreinte de la clé hôte lors de la première connexion.
+
+```powershell
+ssh labuser@YOUR_AUTHORIZED_HOST
+scp labuser@YOUR_AUTHORIZED_HOST:~/io-experiment/result.txt "$HOME\Downloads\"
+scp -r labuser@YOUR_AUTHORIZED_HOST:~/io-experiment "$HOME\Downloads\"
+scp "$HOME\Documents\test.txt" labuser@YOUR_AUTHORIZED_HOST:~/io-experiment/
+sftp labuser@YOUR_AUTHORIZED_HOST
+```
+
+SCP copie des fichiers ou des dossiers et SFTP permet une gestion interactive. Pour des données importantes, comparez les empreintes SHA-256 des fichiers.
+
+## 4. Télécharger depuis le navigateur avec une IP et un port
+
+Une autre capture affiche `Directory listing for /` avec des dossiers cliquables. L’illustration publique masque toutes les coordonnées réseau et les noms de dossiers réels :
+
+![Liste de fichiers HTTP anonymisée]({{ '/assets/blog/http-directory-listing-redacted.svg' | relative_url }})
+
+Créez un dossier ne contenant que des fichiers approuvés pour le partage, puis lancez un serveur HTTP temporaire :
+
+```bash
+mkdir -p ~/public-share
+# Copy only files approved for sharing into ~/public-share
+SHARE_IP="YOUR_AUTHORIZED_PRIVATE_IP"
+SHARE_PORT="YOUR_APPROVED_PORT"
+python3 -m http.server "$SHARE_PORT" --bind "$SHARE_IP" --directory "$HOME/public-share"
+```
+
+Dans le navigateur d’un autre ordinateur autorisé, saisissez :
+
+```text
+http://<HOST_IP>:<PORT>/
+```
+
+`HOST_IP` et `PORT` sont des **espaces réservés**, pas de véritables coordonnées. La connexion dépend du réseau, du pare-feu et des réglages de la VM. Selon le type de fichier et le navigateur, un clic ouvre ou télécharge le document. Arrêtez ensuite le serveur avec `Ctrl+C`.
+
+## 5. Limites de sécurité
+
+Le module Python `http.server` n’intègre par défaut ni authentification ni chiffrement HTTPS. Toute personne pouvant joindre le service peut potentiellement consulter et télécharger les fichiers partagés. Pour des documents confidentiels, préférez SSH/SFTP ou un serveur correctement sécurisé.
+
+## Conclusion
+
+Les expériences ont confirmé la résolution du nom de machine, les réponses ICMP et l’affichage d’un répertoire HTTP. SSH/SCP/SFTP convient aux transferts sécurisés ; le serveur HTTP temporaire doit rester limité aux fichiers non sensibles d’un réseau de confiance.
 
 </div>
