@@ -10,12 +10,12 @@ author_profile: true
 
 > **Research poster** · Zedong Zhou and Niusen Chen · Department of Computer Science and Engineering, University of Nevada, Reno.
 
-{% assign original_poster_pdf = site.static_files | where: "path", "/assets/blog/when-ai-agents-go-rogue-poster.pdf" | first %}
+{% assign original_poster_pdf = site.static_files | where: "path", "/assets/blog/When AI Agents Go Rogue Who Protects Your Files.pdf" | first %}
 {% if original_poster_pdf %}
 <div style="margin:1.5rem 0;padding:1.2rem;border:1px solid #3b8199;border-radius:14px">
   <strong>Original research poster (PDF)</strong>
-  <p><a href="{{ '/assets/blog/when-ai-agents-go-rogue-poster.pdf' | relative_url }}" target="_blank" rel="noopener">Open the complete poster PDF ↗</a> · <a href="{{ '/assets/blog/when-ai-agents-go-rogue-poster.pdf' | relative_url }}" download>Download PDF</a></p>
-  <object data="{{ '/assets/blog/when-ai-agents-go-rogue-poster.pdf' | relative_url }}" type="application/pdf" width="100%" height="760"><p>Your browser cannot preview PDFs. <a href="{{ '/assets/blog/when-ai-agents-go-rogue-poster.pdf' | relative_url }}">Open the PDF</a>.</p></object>
+  <p><a href="{{ '/assets/blog/When%20AI%20Agents%20Go%20Rogue%20Who%20Protects%20Your%20Files.pdf' | relative_url }}" target="_blank" rel="noopener">Open the complete poster PDF ↗</a> · <a href="{{ '/assets/blog/When%20AI%20Agents%20Go%20Rogue%20Who%20Protects%20Your%20Files.pdf' | relative_url }}" download>Download PDF</a></p>
+  <object data="{{ '/assets/blog/When%20AI%20Agents%20Go%20Rogue%20Who%20Protects%20Your%20Files.pdf' | relative_url }}" type="application/pdf" width="100%" height="760"><p>Your browser cannot preview PDFs. <a href="{{ '/assets/blog/When%20AI%20Agents%20Go%20Rogue%20Who%20Protects%20Your%20Files.pdf' | relative_url }}">Open the PDF</a>.</p></object>
 </div>
 {% else %}
 > The original PDF is pending publication. The graphic below is a web-friendly conceptual overview; the complete research content is summarized in this post.
