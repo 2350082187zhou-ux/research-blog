@@ -29,6 +29,7 @@
  const originalText = new WeakMap();
  function extraTranslations(lang){
   Object.entries(extraHome).forEach(([selector,pair])=>document.querySelectorAll(selector).forEach(el=>{
+   if(el.hasAttribute('data-blog-static-i18n'))return;
    if(!originalText.has(el)) originalText.set(el,el.textContent);
    if(pair[0] && (lang==='zh'||lang==='en')) el.textContent=lang==='zh'?pair[1]:originalText.get(el);
   }));
