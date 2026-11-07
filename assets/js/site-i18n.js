@@ -205,6 +205,8 @@
   function remember(node){if(!originals.has(node)) originals.set(node,node.innerHTML); return originals.get(node);}
   function applyOne(selector, data, lang){
     document.querySelectorAll(selector).forEach(node => {
+      // Explicit localized hero blocks are selected by CSS; never overwrite their child translations.
+      if(node.hasAttribute('data-blog-static-i18n'))return;
       const en=remember(node);
       const translated=data[lang];
       node.innerHTML=(lang==='en'||typeof translated!=='string')?en:translated;
